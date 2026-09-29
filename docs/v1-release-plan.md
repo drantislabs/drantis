@@ -40,9 +40,10 @@ A stable tag requires all of the following evidence:
 10. Semgrep, Gitleaks, OSV and Trivy import fixtures normalize correctly.
 11. explicitly authorized isolated verification is exercised with a pinned allowlisted runner image.
 12. Windows desktop builds and the allowlisted Git/Docker/Senten bridge is tested on a real machine.
-13. Senten structured detection, evidence import and intended-vs-observed visualization are validated.
+13. Senten 1.0.3 structured detection, intended-vs-observed visualization, native assurance export/result interchange, and a real export → verify → import round trip are validated.
 14. a fresh clone/install is tested outside the development workspace.
-15. release artifacts and checksums are inspected before publication.
+15. LobeWork-facing `launchproof-capabilities/v1` discovery remains stable and contains no internal implementation coupling.
+16. release artifacts and checksums are inspected before publication.
 
 ## Release artifacts
 
