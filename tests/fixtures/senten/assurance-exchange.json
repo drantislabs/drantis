@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "0.1",
+  "kind": "senten-assurance-exchange",
+  "id": "asx_launchproof_fixture",
+  "generatedAt": "2026-09-29T12:00:00.000Z",
+  "sentenVersion": "1.0.3",
+  "application": {
+    "id": "pipeline-reference",
+    "name": "Pipeline Reference"
+  },
+  "stateTrussDigest": "senten-state-truss-fixture-v1",
+  "claims": [
+    {
+      "id": "claim_tenant_isolation",
+      "subject": "invariant:tenant-isolation",
+      "kind": "invariant",
+      "statement": "Invariant Tenant isolation remains true.",
+      "source": "state-truss",
+      "metadata": {
+        "launchproofAssuranceCaseId": "AC-TENANT-001"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_senten_tenant_test",
+      "claim": "Senten tenant isolation test evidence",
+      "source": "senten:test",
+      "status": "tested",
+      "timestamp": "2026-09-29T11:59:00.000Z",
+      "subject": "invariant:tenant-isolation",
+      "evidenceType": "test",
+      "strength": 3,
+      "environment": "test"
+    }
+  ],
+  "provenance": {
+    "producer": "Senten",
+    "evidencePolicy": "evidence-before-ai",
+    "unknownIsPass": false,
+    "environment": "test"
+  },
+  "digest": "9bd17f53ef003b8264959e873930abd5752b820da8786fb903ef49ecc4d9058e"
+}
