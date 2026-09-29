@@ -11,3 +11,5 @@ export class ExecutionDisabledRunner implements IsolatedRunner {
 }
 
 export * from './engine.js';
+
+export * from './capabilities.js';
