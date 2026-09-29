@@ -6,19 +6,19 @@ const operationsRoot = document.querySelector('#operations');
 let validatedPath = '';
 
 const operations = [
-  ['senten.inspect', 'Inspect', 'Inspect Senten architecture and repository state.'],
-  ['senten.graph', 'Graph', 'Render Senten graph output for the selected repository.'],
-  ['senten.evidence', 'Evidence', 'Read Senten evidence output.'],
-  ['senten.evidence-test', 'Evidence Test', 'Run Senten deterministic evidence tests.'],
-  ['senten.report', 'Report', 'Generate Senten report output.'],
-  ['senten.assurance', 'Assurance', 'Inspect Senten assurance output.'],
-  ['senten.version', 'Senten Version', 'Confirm the Senten executable available to LaunchProof.'],
+  ['senten.version', 'Senten Version', 'Confirm the stable Senten CLI available to LaunchProof.'],
+  ['senten.doctor', 'Senten Doctor', 'Check Senten project and local-state health.'],
+  ['senten.project', 'Project Context', 'Read deterministic Senten project context as JSON.'],
+  ['senten.architecture', 'Architecture', 'Read deterministic Senten architecture context as JSON.'],
+  ['senten.security', 'Security Status', 'Inspect Senten security state and boundaries.'],
+  ['senten.evidence', 'Evidence Summary', 'Read the current Senten evidence ladder summary.'],
+  ['senten.proof', 'Senten Proof', 'Inspect Senten guarantee/evidence status without promoting it to LaunchProof verification.'],
+  ['senten.runtime-alignment', 'Runtime Alignment', 'Compare Senten runtime observations with declared semantic subjects.'],
+  ['senten.assurance-claims', 'Assurance Claims', 'List Senten assurance claims available for independent verification.'],
+  ['senten.launchproof-status', 'Exchange Status', 'Inspect Senten ↔ LaunchProof assurance exchange history.'],
+  ['senten.launchproof-export', 'Export Assurance', 'Create a digest-bound Senten assurance exchange for LaunchProof.'],
   ['git.status', 'Git Status', 'Read repository Git status.'],
-  [
-    'docker.version',
-    'Docker Version',
-    'Check the local Docker client used by isolated verification.',
-  ],
+  ['docker.version', 'Docker Version', 'Check the local Docker client used by isolated verification.'],
 ];
 
 function requireInvoke() {

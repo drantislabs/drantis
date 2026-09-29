@@ -70,6 +70,95 @@ export interface EvidenceInterchangeEnvelope {
   graph?: ApplicationGraph;
 }
 
+export type SentenEvidenceStatus =
+  | 'declared'
+  | 'observed'
+  | 'tested'
+  | 'verified'
+  | 'unknown'
+  | 'failed';
+
+export interface SentenEvidenceRecord {
+  id: string;
+  claim: string;
+  source: string;
+  status: SentenEvidenceStatus;
+  timestamp: string;
+  subject?: string;
+  evidenceType?: 'declaration' | 'runtime' | 'test' | 'verification' | 'interaction' | 'manual';
+  strength?: 0 | 1 | 2 | 3 | 4;
+  traceId?: string;
+  runtimeObservationId?: string;
+  environment?: string;
+  provenance?: Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+}
+
+export interface SentenAssuranceClaim {
+  id: string;
+  subject: string;
+  kind: 'invariant' | 'policy' | 'action' | 'route' | 'resource' | 'custom';
+  statement: string;
+  source: string;
+  metadata?: Record<string, unknown>;
+}
+
+export interface SentenAssuranceExchangeBundle {
+  schemaVersion: '0.1';
+  kind: 'senten-assurance-exchange';
+  id: string;
+  generatedAt: string;
+  sentenVersion: string;
+  application: { id: string; name: string; version?: string };
+  stateTrussDigest: string;
+  claims: SentenAssuranceClaim[];
+  evidence: SentenEvidenceRecord[];
+  provenance: {
+    producer: 'Senten';
+    evidencePolicy: 'evidence-before-ai';
+    unknownIsPass: false;
+    environment?: string;
+  };
+  digest: string;
+}
+
+export interface LaunchProofClaimVerificationResult {
+  claimId: string;
+  subject: string;
+  outcome: 'verified' | 'failed' | 'unknown' | 'inconclusive';
+  reason?: string;
+  checks?: Array<{
+    id: string;
+    name?: string;
+    status: 'passed' | 'failed' | 'unknown';
+    evidenceRefs?: string[];
+    metadata?: Record<string, unknown>;
+  }>;
+  evidenceRefs?: string[];
+  metadata?: Record<string, unknown>;
+}
+
+export interface LaunchProofVerificationResultBundle {
+  schemaVersion: '0.1';
+  kind: 'launchproof-verification-result';
+  id: string;
+  generatedAt: string;
+  sourceBundleId: string;
+  sourceBundleDigest: string;
+  verifier: { name: 'LaunchProof'; version?: string; executionId?: string };
+  results: LaunchProofClaimVerificationResult[];
+  signature?: {
+    algorithm: 'ed25519';
+    keyId: string;
+    publisher?: string;
+    publicKey: string;
+    signature: string;
+    signedDigest: string;
+    createdAt: string;
+  };
+  metadata?: Record<string, unknown>;
+}
+
 export interface VerificationCommandPolicy {
   id: string;
   command: string;

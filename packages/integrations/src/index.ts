@@ -506,3 +506,5 @@ export class DockerEphemeralRunner implements IsolatedRunner {
 }
 
 export * from './extensions.js';
+
+export * from './senten-assurance.js';
