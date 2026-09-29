@@ -18,7 +18,7 @@ function context(snapshot: RepositorySnapshot): AnalyzerContext {
       branch: snapshot.branch,
       commit: snapshot.commit,
       analyzedAt: '2026-09-17T00:00:00Z',
-      launchProofVersion: '0.2.0',
+      launchProofVersion: '1.0.0-rc.1',
       policyVersion: '1',
     },
   };
@@ -49,7 +49,7 @@ describe('extension contracts', () => {
 
   it('detects Senten only from structured project declarations and renders intended architecture', () => {
     const repo = snapshot({
-      'package.json': JSON.stringify({ devDependencies: { senten: '1.0.0-rc.3' } }),
+      'package.json': JSON.stringify({ devDependencies: { senten: '1.0.3' } }),
       'senten.architecture.json': JSON.stringify({
         modules: [
           { id: 'cli', name: 'CLI' },
@@ -83,7 +83,7 @@ describe('extension contracts', () => {
 describe('evidence interchange', () => {
   const envelope = (commit = 'abc123'): EvidenceInterchangeEnvelope => ({
     schema: 'launchproof-evidence/v1',
-    producer: { id: 'senten', version: '1.0.0-rc.3' },
+    producer: { id: 'senten', version: '1.0.3' },
     repository: { name: 'demo', branch: 'main', commit },
     generatedAt: '2026-09-17T00:00:00Z',
     evidence: [
@@ -103,7 +103,7 @@ describe('evidence interchange', () => {
         statement: 'Declared architecture is satisfied.',
         scope: ['architecture'],
         evidenceIds: ['senten-ev-1'],
-        producer: { id: 'senten', version: '1.0.0-rc.3' },
+        producer: { id: 'senten', version: '1.0.3' },
         certainty: 'VERIFIED',
       },
     ],
