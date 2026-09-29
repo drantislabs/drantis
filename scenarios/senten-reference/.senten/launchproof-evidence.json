@@ -2,7 +2,7 @@
   "schema": "launchproof-evidence/v1",
   "producer": {
     "id": "senten",
-    "version": "1.0.0-rc.1"
+    "version": "1.0.3"
   },
   "repository": {
     "name": "senten-integration-contract-fixture",
@@ -35,7 +35,7 @@
       "evidenceIds": ["senten-fixture-invariant"],
       "producer": {
         "id": "senten",
-        "version": "1.0.0-rc.1"
+        "version": "1.0.3"
       },
       "certainty": "VERIFIED"
     }
