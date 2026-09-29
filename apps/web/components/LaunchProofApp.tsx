@@ -51,7 +51,7 @@ export function LaunchProofApp() {
   useEffect(() => {
     fetch('/api/capabilities')
       .then((response) => response.json())
-      .then((body) => setLocalModeAvailable(Boolean(body?.localAnalysis?.enabled)))
+      .then((body) => setLocalModeAvailable(Boolean(body?.runtime?.localAnalysis?.enabled ?? body?.localAnalysis?.enabled)))
       .catch(() => setLocalModeAvailable(false));
   }, []);
 
