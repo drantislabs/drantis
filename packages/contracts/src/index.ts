@@ -159,6 +159,31 @@ export interface LaunchProofVerificationResultBundle {
   metadata?: Record<string, unknown>;
 }
 
+export interface LaunchProofCapabilityDocument {
+  schema: 'launchproof-capabilities/v1';
+  launchProofVersion: string;
+  surfaces: Array<'cli' | 'web' | 'desktop' | 'docker'>;
+  commands: string[];
+  protocols: {
+    genericEvidence: 'launchproof-evidence/v1';
+    sentenAssuranceExchange: '0.1';
+    launchProofVerificationResult: '0.1';
+    sarif: '2.1.0';
+  };
+  integrations: {
+    senten: {
+      targetVersion: string;
+      exportCommand: string;
+      importCommand: string;
+      trustCommand: string;
+    };
+    lobework: {
+      status: 'contract-ready' | 'planned';
+      transport: string;
+    };
+  };
+}
+
 export interface VerificationCommandPolicy {
   id: string;
   command: string;
