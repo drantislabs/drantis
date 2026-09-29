@@ -7,7 +7,8 @@ import {
   parseSentenAssuranceExchange,
   signLaunchProofVerificationResult,
 } from '@launchproof/integrations';
-import { analyzeRepository, formatReport, launchProofCapabilities, toSarif } from './index.js';
+import { launchProofCapabilities } from '@launchproof/core';
+import { analyzeRepository, formatReport, toSarif } from './index.js';
 
 const args = process.argv.slice(2);
 const command = args.shift() ?? 'analyze';
