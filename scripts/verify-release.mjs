@@ -166,6 +166,26 @@ runGate('scanner-fixture-analysis', 'npm', [
   scannerReport,
 ]);
 runGate('scanner-fixture-assertions', 'npm', ['run', 'verify:scanners', '--', scannerReport]);
+const sentenNativeResult = join(logRoot, 'senten-native-result.json');
+runGate('senten-native-assurance', 'npm', [
+  'run',
+  'cli',
+  '--',
+  'senten',
+  'verify',
+  'tests/fixtures/senten/assurance-exchange.json',
+  '--repo',
+  'scenarios/production-reference',
+  '--output',
+  sentenNativeResult,
+]);
+runGate('senten-native-assurance-assertions', 'npm', [
+  'run',
+  'verify:senten-interop',
+  '--',
+  'tests/fixtures/senten/assurance-exchange.json',
+  sentenNativeResult,
+]);
 runGate('cli-self-analysis', 'npm', ['run', 'cli', '--', 'analyze', '.', '--json', selfReport]);
 
 if (withE2E) {
