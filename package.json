@@ -24,7 +24,8 @@
     "pack:cli": "npm pack -w @launchproof/cli --dry-run",
     "verify:rc": "node scripts/verify-release.mjs",
     "verify:scanners": "node scripts/assert-scanner-fixtures.mjs",
-    "verify:isolated-runner": "tsx scripts/verify-isolated-runner.mts"
+    "verify:isolated-runner": "tsx scripts/verify-isolated-runner.mts",
+    "verify:senten-interop": "node scripts/assert-senten-interop.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
