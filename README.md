@@ -138,6 +138,37 @@ Exit codes for `verify`:
 - `2`: BLOCKED or INCOMPLETE
 - `3`: invocation/configuration/analysis error
 
+### Senten 1.0.3 native assurance
+
+LaunchProof speaks Senten's stable assurance exchange directly:
+
+```bash
+senten launchproof export
+launchproof senten inspect .senten/artifacts/assurance/<bundle>.senten-assurance.json
+launchproof senten verify .senten/artifacts/assurance/<bundle>.senten-assurance.json \
+  --repo . \
+  --output .launchproof/launchproof-result.json
+senten launchproof import .launchproof/launchproof-result.json \
+  --source .senten/artifacts/assurance/<bundle>.senten-assurance.json
+```
+
+For trusted independent verification, generate a LaunchProof Ed25519 key with
+`launchproof senten keygen .launchproof/keys`, trust the public key in Senten, and pass the
+private key to `launchproof senten verify --sign-key ...`.
+
+LaunchProof never upgrades Senten's own `declared`, `observed`, `tested`, or `verified`
+records directly into LaunchProof `VERIFIED`. A Senten claim is returned as `verified` only
+when the mapped LaunchProof Assurance Case independently reaches `VERIFIED`.
+
+### Machine capability discovery
+
+```bash
+launchproof capabilities
+```
+
+The `launchproof-capabilities/v1` document exposes supported surfaces and protocol versions for
+future clients such as LobeWork without requiring them to import LaunchProof internals.
+
 ## Scanner adapters
 
 LaunchProof normalizes outputs from mature tools instead of pretending to replace them:
@@ -255,6 +286,6 @@ LaunchProof is a flagship ThomasDSCX Labs project. Any public badge/report must 
 
 ## Extensibility and Senten
 
-LaunchProof Core is platform-agnostic. LaunchProof 1.0 defines versioned language/framework/platform/evidence-importer contracts rather than teaching Core about every ecosystem. Senten is the first official platform adapter: LaunchProof can detect `senten.architecture.json`, render intended architecture/invariants, and import commit-bound `launchproof-evidence/v1` artifacts without trusting Senten to mark LaunchProof controls as passed. See [`docs/senten-integration.md`](docs/senten-integration.md).
+LaunchProof Core is platform-agnostic. LaunchProof 1.0 defines versioned language/framework/platform/evidence-importer contracts rather than teaching Core about every ecosystem. Senten is the first official platform adapter: LaunchProof can detect Senten structure, render intended architecture/invariants, preserve the generic `launchproof-evidence/v1` importer for extensions, and natively exchange Senten 1.0.3 `senten-assurance-exchange` / `launchproof-verification-result` artifacts without trusting Senten to mark LaunchProof controls as passed. See [`docs/senten-integration.md`](docs/senten-integration.md).
 
 LaunchProof Desktop also exposes a narrow allowlisted native-operation bridge for Senten/Git/Docker diagnostics. It deliberately does **not** expose a free-form terminal or arbitrary shell execution to the webview.
