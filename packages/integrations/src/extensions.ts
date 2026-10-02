@@ -36,7 +36,7 @@ const CAPABILITIES = new Set<ExtensionCapability>([
 
 export function validateExtensionManifest(manifest: ExtensionManifest): ExtensionManifest {
   if (manifest.apiVersion !== MANIFEST_API)
-    throw new Error(`Unsupported LaunchProof extension API: ${String(manifest.apiVersion)}`);
+    throw new Error(`Unsupported Drantis extension API: ${String(manifest.apiVersion)}`);
   if (!EXTENSION_ID.test(manifest.metadata.id))
     throw new Error(`Invalid extension id: ${manifest.metadata.id}`);
   if (!manifest.metadata.version.trim()) throw new Error('Extension version is required.');
@@ -162,7 +162,7 @@ function safeImportedSource(
 }
 
 function certaintyFromExternal(value: unknown): Evidence['certainty'] {
-  // External producers can provide evidence, but only LaunchProof-authorized isolated verification can create VERIFIED guarantees.
+  // External producers can provide evidence, but only Drantis-authorized isolated verification can create VERIFIED guarantees.
   if (value === 'INFERRED' || value === 'VERIFIED') return 'INFERRED';
   return 'DETECTED';
 }
@@ -174,8 +174,8 @@ export class LaunchProofEvidenceImporter implements EvidenceImporter {
     metadata: {
       id: 'launchproof-evidence-v1',
       version: VERSION,
-      displayName: 'LaunchProof Evidence Interchange v1',
-      vendor: 'LaunchProof',
+      displayName: 'Drantis Legacy Evidence Interchange v1',
+      vendor: 'Drantis',
     },
     capabilities: ['evidence', 'graph', 'invariants'],
     compatibility: { core: '>=1.0.0-rc.1 <2.0.0' },
@@ -457,7 +457,7 @@ class SentenAnalyzer implements Analyzer {
         certainty: 'DETECTED',
         title: 'Senten evidence interchange imported',
         description:
-          'A versioned LaunchProof evidence envelope produced by Senten was validated and normalized. Upstream VERIFIED claims are not promoted to LaunchProof VERIFIED.',
+          'A versioned LaunchProof evidence envelope produced by Senten was validated and normalized. Upstream VERIFIED claims are not promoted to Drantis VERIFIED.',
         analyzer: { id: this.id, version: this.version },
         provenance: context.provenance,
         source: { path: imported.path },
@@ -489,7 +489,7 @@ class SentenAnalyzer implements Analyzer {
       certainty: 'DETECTED',
       title: 'Senten architecture declaration discovered',
       description:
-        'LaunchProof parsed Senten intended-architecture metadata without executing Senten or repository code.',
+        'Drantis parsed Senten intended-architecture metadata without executing Senten or repository code.',
       analyzer: { id: this.id, version: this.version },
       provenance: context.provenance,
       source: { path: 'senten.architecture.json' },
