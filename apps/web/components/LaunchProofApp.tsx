@@ -196,7 +196,7 @@ export function DrantisApp() {
                 <option value="missing-tenant-authorization">
                   Pipeline — Missing Tenant Authorization
                 </option>
-                <option value="launchproof-self">Drantis — Self Analysis</option>
+                <option value="drantis-self">Drantis — Self Analysis</option>
                 <option value="senten-reference">Senten — Integration Contract</option>
               </select>
             </label>
