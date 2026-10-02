@@ -1,10 +1,10 @@
 # Desktop Security
 
-LaunchProof Desktop uses a Tauri 2 shell under `apps/desktop`.
+Drantis Desktop uses a Tauri 2 shell under `apps/desktop`.
 
-The webview is deliberately not granted unrestricted filesystem, shell/process, Docker or credential capabilities. The current native boundary exposes only narrow commands such as repository-path validation and capability reporting. Analysis remains a LaunchProof Core responsibility rather than a second Rust implementation.
+The webview is deliberately not granted unrestricted filesystem, shell/process, Docker or credential capabilities. The current native boundary exposes only narrow commands such as repository-path validation and capability reporting. Analysis remains a Drantis Core responsibility rather than a second Rust implementation.
 
-Future desktop integration should communicate with a packaged local LaunchProof Core service or narrowly scoped sidecar. Any privileged operation must have an explicit command contract, input validation and least-privilege Tauri capability declaration. Provider credentials should use OS-backed secure storage and never enter the webview DOM or serialized analysis report.
+Future desktop integration should communicate with a packaged local Drantis Core service or narrowly scoped sidecar. Any privileged operation must have an explicit command contract, input validation and least-privilege Tauri capability declaration. Provider credentials should use OS-backed secure storage and never enter the webview DOM or serialized analysis report.
 
 ## Native operation bridge
 
