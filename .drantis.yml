@@ -1,0 +1,31 @@
+version: 1
+analysis:
+  excludePaths: [scenarios, .offline-dist, .offline-dist2, .offline-runtime]
+assurance:
+  requiredDomains: [security, architecture, testing, production]
+security:
+  failOnSeverity: high
+  requireNoDetectedSecrets: true
+  requireAuthorizationForProtectedRoutes: true
+  requireRateLimitForPublicMutation: false
+tenancy:
+  required: false
+  requireRls: false
+testing:
+  requireTestFiles: true
+  requireVerifiedTests: false
+production:
+  requireReleaseProvenance: true
+  requireSecurityHeaders: true
+  requireObservability: false
+releaseGates:
+  blockOnFailedAssuranceCase: true
+  blockOnCriticalFinding: true
+  minimumScore: 80
+  minimumCoverage: 50
+ai:
+  dataPolicy: local-only
+  allowedProviders: []
+verification:
+  enabled: false
+  commands: []
