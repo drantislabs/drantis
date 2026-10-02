@@ -10,7 +10,8 @@ import { loadRepositoryPolicy } from '@launchproof/policies';
 import { SentenPlatformAdapter, analyzersFromPlatformAdapters } from '@launchproof/integrations';
 
 export function localAnalysisCapability() {
-  const configuredRoot = process.env.DRANTIS_REPOSITORY_ROOT ?? process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+  const configuredRoot =
+    process.env.DRANTIS_REPOSITORY_ROOT ?? process.env.LAUNCHPROOF_REPOSITORY_ROOT;
   return {
     enabled:
       (process.env.DRANTIS_LOCAL_MODE ?? process.env.LAUNCHPROOF_LOCAL_MODE) === '1' &&
@@ -23,7 +24,8 @@ function configuredRepositoryRoot(): string {
   if ((process.env.DRANTIS_LOCAL_MODE ?? process.env.LAUNCHPROOF_LOCAL_MODE) !== '1') {
     throw new Error('Local repository analysis is disabled.');
   }
-  const configured = process.env.DRANTIS_REPOSITORY_ROOT ?? process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+  const configured =
+    process.env.DRANTIS_REPOSITORY_ROOT ?? process.env.LAUNCHPROOF_REPOSITORY_ROOT;
   if (!configured) {
     throw new Error('DRANTIS_REPOSITORY_ROOT is not configured.');
   }
