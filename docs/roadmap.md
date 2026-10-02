@@ -77,4 +77,4 @@ See [v1-release-plan.md](v1-release-plan.md) and [release-verification.md](relea
 4. richer signed attestations/SBOM correlation;
 5. broader desktop packaging after platform-specific verification;
 6. extension SDK/community ecosystem stabilization;
-7. additional authorized ThomasDSCX Labs scenarios.
+7. additional authorized Drantis Labs scenarios.
