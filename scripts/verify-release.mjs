@@ -104,8 +104,8 @@ runGate('format-check', 'npm', ['run', 'format:check']);
 runGate('lint', 'npm', ['run', 'lint']);
 runGate('typecheck', 'npm', ['run', 'typecheck']);
 runGate('unit-integration-tests', 'npm', ['test']);
-runGate('web-production-build', 'npm', ['run', 'build', '-w', '@launchproof/web']);
-runGate('cli-production-build', 'npm', ['run', 'build', '-w', '@launchproof/cli']);
+runGate('web-production-build', 'npm', ['run', 'build:web']);
+runGate('cli-production-build', 'npm', ['run', 'build:cli']);
 runGate('cli-package-dry-run', 'npm', ['pack', '-w', '@launchproof/cli', '--dry-run']);
 
 const referenceReport = join(logRoot, 'production-reference.json');
