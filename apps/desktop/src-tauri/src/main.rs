@@ -44,8 +44,8 @@ fn operation_spec(operation: &str) -> Option<(&'static str, &'static [&'static s
         "senten.proof" => Some(("senten", &["proof"])),
         "senten.runtime-alignment" => Some(("senten", &["runtime", "alignment"])),
         "senten.assurance-claims" => Some(("senten", &["assurance", "claims"])),
-        "senten.launchproof-status" => Some(("senten", &["launchproof", "status"])),
-        "senten.launchproof-export" => Some(("senten", &["launchproof", "export"])),
+        "senten.drantis-status" | "senten.launchproof-status" => Some(("senten", &["launchproof", "status"])),
+        "senten.drantis-export" | "senten.launchproof-export" => Some(("senten", &["launchproof", "export"])),
         "git.status" => Some(("git", &["status", "--porcelain=v1", "--branch"])),
         "docker.version" => Some(("docker", &["version", "--format", "{{json .Client}}"])),
         _ => None,
@@ -58,7 +58,7 @@ fn temporary_output_file(kind: &str) -> Result<(PathBuf, File), String> {
         .map_err(|_| "System clock error.".to_string())?
         .as_nanos();
     let path = std::env::temp_dir().join(format!(
-        "launchproof-{}-{}-{}.log",
+        "drantis-{}-{}-{}.log",
         kind,
         std::process::id(),
         stamp
@@ -104,7 +104,7 @@ fn run_native_operation(
 ) -> Result<serde_json::Value, String> {
     let repository = canonical_repository(&repository_path)?;
     let (program, args) = operation_spec(&operation)
-        .ok_or_else(|| "Operation is not allowlisted by LaunchProof desktop.".to_string())?;
+        .ok_or_else(|| "Operation is not allowlisted by Drantis Desktop.".to_string())?;
     let (stdout_path, stdout_file) = temporary_output_file("stdout")?;
     let (stderr_path, stderr_file) = temporary_output_file("stderr")?;
 
@@ -166,7 +166,7 @@ fn desktop_capabilities() -> serde_json::Value {
         "process": "allowlisted-native-operations-only",
         "shell": "fixed-windows-npm-shim-only",
         "credentials": "not-exposed-to-webview",
-        "analysis": "delegated-to-launchproof-core-service",
+        "analysis": "delegated-to-drantis-core-service",
         "sentenTarget": "1.0.3",
         "nativeOperations": [
             "senten.version",
@@ -178,8 +178,8 @@ fn desktop_capabilities() -> serde_json::Value {
             "senten.proof",
             "senten.runtime-alignment",
             "senten.assurance-claims",
-            "senten.launchproof-status",
-            "senten.launchproof-export",
+            "senten.drantis-status",
+            "senten.drantis-export",
             "git.status",
             "docker.version"
         ]
@@ -194,5 +194,5 @@ fn main() {
             desktop_capabilities
         ])
         .run(tauri::generate_context!())
-        .expect("error while running LaunchProof desktop");
+        .expect("error while running Drantis Desktop");
 }
