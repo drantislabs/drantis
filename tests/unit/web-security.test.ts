@@ -34,6 +34,29 @@ describe('public web security boundary', () => {
     else process.env.LAUNCHPROOF_REPOSITORY_ROOT = previousLegacyRoot;
   });
 
+  it('supports the legacy LaunchProof environment variables during migration', () => {
+    const previousMode = process.env.LAUNCHPROOF_LOCAL_MODE;
+    const previousRoot = process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+    const previousDrantisMode = process.env.DRANTIS_LOCAL_MODE;
+    const previousDrantisRoot = process.env.DRANTIS_REPOSITORY_ROOT;
+    delete process.env.DRANTIS_LOCAL_MODE;
+    delete process.env.DRANTIS_REPOSITORY_ROOT;
+    process.env.LAUNCHPROOF_LOCAL_MODE = '1';
+    process.env.LAUNCHPROOF_REPOSITORY_ROOT = '/tmp/legacy-projects';
+    expect(localAnalysisCapability()).toEqual({
+      enabled: true,
+      repositoryRootConfigured: true,
+    });
+    if (previousMode === undefined) delete process.env.LAUNCHPROOF_LOCAL_MODE;
+    else process.env.LAUNCHPROOF_LOCAL_MODE = previousMode;
+    if (previousRoot === undefined) delete process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+    else process.env.LAUNCHPROOF_REPOSITORY_ROOT = previousRoot;
+    if (previousDrantisMode === undefined) delete process.env.DRANTIS_LOCAL_MODE;
+    else process.env.DRANTIS_LOCAL_MODE = previousDrantisMode;
+    if (previousDrantisRoot === undefined) delete process.env.DRANTIS_REPOSITORY_ROOT;
+    else process.env.DRANTIS_REPOSITORY_ROOT = previousDrantisRoot;
+  });
+
   it('does not trust x-forwarded-for unless the host explicitly configures that header', () => {
     const previous = process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
     delete process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
