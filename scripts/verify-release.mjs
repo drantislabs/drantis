@@ -11,10 +11,10 @@ const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(root);
 
 const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\..+/, '').replace('T', '-');
-const logRoot = join(root, '.launchproof', 'verification', stamp);
+const logRoot = join(root, '.drantis', 'verification', stamp);
 mkdirSync(logRoot, { recursive: true });
 
-const status = (message) => console.log(`[LaunchProof 1.0 RC] ${message}`);
+const status = (message) => console.log(`[Drantis 1.0 RC] ${message}`);
 const windowsCommandWrappers = new Set(['npm', 'npx']);
 
 function resolveInvocation(command, commandArgs) {
@@ -51,7 +51,7 @@ function runGate(name, command, commandArgs = [], acceptedExitCodes = [0]) {
   }
   const code = result.status ?? 1;
   if (!acceptedExitCodes.includes(code)) {
-    console.error(`[LaunchProof 1.0 RC] FAIL ${name} (exit ${code})`);
+    console.error(`[Drantis 1.0 RC] FAIL ${name} (exit ${code})`);
     console.error(`Log: ${logPath}`);
     process.exit(code);
   }
@@ -62,7 +62,7 @@ function runGate(name, command, commandArgs = [], acceptedExitCodes = [0]) {
 const major = Number(process.versions.node.split('.')[0]);
 if (![24, 26].includes(major)) {
   console.error(
-    `LaunchProof 1.0 RC verification supports Node 24.x (LTS baseline) or Node 26.x (forward-compatibility lane); found v${process.versions.node}.`,
+    `Drantis 1.0 RC verification supports Node 24.x (LTS baseline) or Node 26.x (forward-compatibility lane); found v${process.versions.node}.`,
   );
   process.exit(3);
 }
@@ -200,20 +200,20 @@ if (withE2E) {
 if (withDocker) {
   runGate('docker-version', 'docker', ['--version']);
   runGate('docker-compose-version', 'docker', ['compose', 'version']);
-  runGate('docker-build', 'docker', ['build', '-t', 'launchproof:1.0.0-rc.1', '.']);
+  runGate('docker-build', 'docker', ['build', '-t', 'drantis:1.0.0-rc.1', '.']);
   runGate('docker-compose-config', 'docker', ['compose', 'config', '--quiet']);
   runGate('isolated-runner-image-build', 'docker', [
     'build',
     '-f',
     'tests/fixtures/runner/Dockerfile',
     '-t',
-    'launchproof-runner:rc',
+    'drantis-runner:rc',
     'tests/fixtures/runner',
   ]);
   const inspect = runGate('isolated-runner-image-id', 'docker', [
     'image',
     'inspect',
-    'launchproof-runner:rc',
+    'drantis-runner:rc',
     '--format',
     '{{.Id}}',
   ]);
