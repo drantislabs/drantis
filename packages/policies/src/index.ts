@@ -3,7 +3,7 @@ import path from 'node:path';
 import YAML from 'yaml';
 import { z } from 'zod';
 import { AI_DATA_POLICIES, ASSURANCE_DOMAINS, SEVERITIES } from '@launchproof/contracts';
-import type { LaunchProofPolicyShape } from '@launchproof/contracts';
+import type { DrantisPolicyShape } from '@launchproof/contracts';
 
 const verificationCommandSchema = z
   .object({
@@ -111,10 +111,12 @@ export const policySchema = z
   })
   .strict();
 
-export type LaunchProofPolicy = z.infer<typeof policySchema>;
-export const defaultPolicy: LaunchProofPolicy = policySchema.parse({ version: 1 });
+export type DrantisPolicy = z.infer<typeof policySchema>;
+/** @deprecated Use DrantisPolicy. */
+export type LaunchProofPolicy = DrantisPolicy;
+export const defaultPolicy: DrantisPolicy = policySchema.parse({ version: 1 });
 
-export function parsePolicy(raw: string, source = '.drantis.yml'): LaunchProofPolicy {
+export function parsePolicy(raw: string, source = '.drantis.yml'): DrantisPolicy {
   try {
     const doc = YAML.parse(raw, { maxAliasCount: 20 });
     return policySchema.parse(doc);
@@ -125,7 +127,7 @@ export function parsePolicy(raw: string, source = '.drantis.yml'): LaunchProofPo
   }
 }
 
-export async function loadPolicy(filePath: string): Promise<LaunchProofPolicy> {
+export async function loadPolicy(filePath: string): Promise<DrantisPolicy> {
   try {
     const raw = await readFile(filePath, 'utf8');
     if (Buffer.byteLength(raw, 'utf8') > 256_000)
@@ -141,7 +143,7 @@ export async function loadPolicy(filePath: string): Promise<LaunchProofPolicy> {
   }
 }
 
-export async function loadRepositoryPolicy(root: string): Promise<LaunchProofPolicy> {
+export async function loadRepositoryPolicy(root: string): Promise<DrantisPolicy> {
   const primary = path.join(root, '.drantis.yml');
   try {
     await access(primary);
@@ -173,8 +175,8 @@ function mergeObject<T extends Record<string, any>>(base: T, overlay: Partial<T>
  * Each layer is validated before and after merging; unknown keys fail closed.
  */
 export function inheritPolicies(
-  layers: Array<Partial<LaunchProofPolicyShape> | undefined>,
-): LaunchProofPolicy {
+  layers: Array<Partial<DrantisPolicyShape> | undefined>,
+): DrantisPolicy {
   let merged: Record<string, any> = structuredClone(defaultPolicy);
   for (const layer of layers) if (layer) merged = mergeObject(merged, layer as Record<string, any>);
   return policySchema.parse(merged);
