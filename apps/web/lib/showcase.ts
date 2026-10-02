@@ -44,9 +44,19 @@ export const SHOWCASE_TARGETS = new Map<
     },
   ],
   [
-    'launchproof-self',
+    'drantis-self',
     {
       label: 'Drantis — Self Analysis',
+      repository: 'drantislabs/drantis',
+      relativeRoot: '.',
+      branch: 'working-tree',
+      commit: 'SELF',
+    },
+  ],
+  [
+    'launchproof-self',
+    {
+      label: 'Drantis — Self Analysis (legacy scenario id)',
       repository: 'drantislabs/drantis',
       relativeRoot: '.',
       branch: 'working-tree',
