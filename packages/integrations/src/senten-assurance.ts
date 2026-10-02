@@ -272,7 +272,7 @@ export class SentenAssuranceExchangeAnalyzer implements Analyzer {
       certainty: 'DETECTED',
       title: 'Senten assurance exchange validated',
       description:
-        'LaunchProof validated a digest-bound Senten assurance export. Imported Senten evidence remains upstream evidence and cannot mint LaunchProof VERIFIED certainty.',
+        'Drantis validated a digest-bound Senten assurance export. Imported Senten evidence remains upstream evidence and cannot mint Drantis VERIFIED certainty.',
       analyzer: { id: this.id, version: this.version },
       provenance: context.provenance,
       data: {
@@ -432,21 +432,21 @@ function outcomeForCase(
     return {
       outcome: 'verified',
       reason:
-        'LaunchProof independently reached VERIFIED for the mapped Assurance Case using deterministic verification evidence.',
+        'Drantis independently reached VERIFIED for the mapped Assurance Case using deterministic verification evidence.',
     };
   if (item.state === 'FAILED')
     return {
       outcome: 'failed',
-      reason: 'LaunchProof independently reached FAILED for the mapped Assurance Case.',
+      reason: 'Drantis independently reached FAILED for the mapped Assurance Case.',
     };
   if (item.state === 'SUPPORTED' || item.state === 'PARTIAL')
     return {
       outcome: 'inconclusive',
-      reason: `LaunchProof mapped this claim to ${item.id}, but the Assurance Case is ${item.state}; support is not independent verification.`,
+      reason: `Drantis mapped this claim to ${item.id}, but the Assurance Case is ${item.state}; support is not independent verification.`,
     };
   return {
     outcome: 'unknown',
-    reason: `LaunchProof mapped this claim to ${item.id}, but the Assurance Case is ${item.state}.`,
+    reason: `Drantis mapped this claim to ${item.id}, but the Assurance Case is ${item.state}.`,
   };
 }
 
@@ -465,7 +465,7 @@ export function createLaunchProofVerificationResult(
       },
       {
         id: 'launchproof-snapshot-analysis',
-        name: 'LaunchProof independently analyzed the target snapshot',
+        name: 'Drantis independently analyzed the target snapshot',
         status: 'passed',
         metadata: {
           repository: report.provenance.repository,
@@ -490,7 +490,7 @@ export function createLaunchProofVerificationResult(
       evidenceRefs = [...new Set([...evidenceRefs, ...mapped.item.evidenceIds])];
       checks.push({
         id: `assurance-case:${mapped.item.id}`,
-        name: `LaunchProof Assurance Case ${mapped.item.id}`,
+        name: `Drantis Assurance Case ${mapped.item.id}`,
         status:
           mapped.item.state === 'VERIFIED'
             ? 'passed'
@@ -508,13 +508,13 @@ export function createLaunchProofVerificationResult(
       decision = {
         outcome: 'inconclusive',
         reason:
-          'LaunchProof independently observed corresponding structure, but no verified Assurance Case establishes the Senten claim.',
+          'Drantis independently observed corresponding structure, but no verified Assurance Case establishes the Senten claim.',
       };
     } else {
       decision = {
         outcome: 'unknown',
         reason:
-          'LaunchProof could not map this Senten claim to an independently evaluated Assurance Case or observed graph subject.',
+          'Drantis could not map this Senten claim to an independently evaluated Assurance Case or observed graph subject.',
       };
     }
 
