@@ -146,7 +146,7 @@ export class SemgrepAdapter implements ScannerAdapter {
             ? item.extra.metadata.owasp.map(String)
             : undefined,
           explanation:
-            'Semgrep emitted this result from static analysis. LaunchProof normalized it without changing scanner semantics.',
+            'Semgrep emitted this result from static analysis. Drantis normalized it without changing scanner semantics.',
           impact: 'Impact depends on the matched Semgrep rule and affected data/control path.',
           remediation:
             item?.extra?.metadata?.fix ??
@@ -176,7 +176,7 @@ export class GitleaksAdapter implements ScannerAdapter {
         this,
         'scanner.gitleaks',
         `Gitleaks: ${item?.Description ?? item?.RuleID ?? 'secret'}`,
-        'Gitleaks reported a secret candidate. Secret content is intentionally not copied into LaunchProof evidence.',
+        'Gitleaks reported a secret candidate. Secret content is intentionally not copied into Drantis evidence.',
         {
           ruleId: item?.RuleID,
           description: item?.Description,
@@ -200,7 +200,7 @@ export class GitleaksAdapter implements ScannerAdapter {
           source,
           cwe: ['CWE-798'],
           explanation:
-            'Gitleaks detected a credential/secret pattern. LaunchProof stores only metadata and a fingerprint, not the secret value.',
+            'Gitleaks detected a credential/secret pattern. Drantis stores only metadata and a fingerprint, not the secret value.',
           impact: 'A valid exposed credential can permit unauthorized access.',
           remediation:
             'Revoke/rotate the credential and purge it from repository history where appropriate.',
@@ -384,7 +384,7 @@ export class ScannerOutputAnalyzer {
       certainty: 'DETECTED',
       title: `${this.input.scanner} scanner result imported`,
       description:
-        'LaunchProof parsed supplied scanner output through a normalized adapter. Import evidence does not prove the scanner command itself was executed by LaunchProof.',
+        'Drantis parsed supplied scanner output through a normalized adapter. Import evidence does not prove the scanner command itself was executed by Drantis.',
       analyzer: { id: this.id, version: this.version },
       provenance: context.provenance,
       data: {
@@ -421,7 +421,7 @@ export class DockerEphemeralRunner implements IsolatedRunner {
     if (!this.options.allowedImages?.length)
       throw new Error('Host runner image allowlist is empty; dynamic verification fails closed.');
     if (!this.options.allowedImages.includes(image))
-      throw new Error(`Runner image is not allowlisted by the LaunchProof host: ${image}`);
+      throw new Error(`Runner image is not allowlisted by the Drantis host: ${image}`);
     if (!/^[a-zA-Z0-9._/@:-]+$/.test(image))
       throw new Error('Runner image contains unsupported characters.');
     if (
