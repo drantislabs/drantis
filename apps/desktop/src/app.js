@@ -6,17 +6,17 @@ const operationsRoot = document.querySelector('#operations');
 let validatedPath = '';
 
 const operations = [
-  ['senten.version', 'Senten Version', 'Confirm the stable Senten CLI available to LaunchProof.'],
+  ['senten.version', 'Senten Version', 'Confirm the stable Senten CLI available to Drantis.'],
   ['senten.doctor', 'Senten Doctor', 'Check Senten project and local-state health.'],
   ['senten.project', 'Project Context', 'Read deterministic Senten project context as JSON.'],
   ['senten.architecture', 'Architecture', 'Read deterministic Senten architecture context as JSON.'],
   ['senten.security', 'Security Status', 'Inspect Senten security state and boundaries.'],
   ['senten.evidence', 'Evidence Summary', 'Read the current Senten evidence ladder summary.'],
-  ['senten.proof', 'Senten Proof', 'Inspect Senten guarantee/evidence status without promoting it to LaunchProof verification.'],
+  ['senten.proof', 'Senten Proof', 'Inspect Senten guarantee/evidence status without promoting it to Drantis verification.'],
   ['senten.runtime-alignment', 'Runtime Alignment', 'Compare Senten runtime observations with declared semantic subjects.'],
   ['senten.assurance-claims', 'Assurance Claims', 'List Senten assurance claims available for independent verification.'],
-  ['senten.launchproof-status', 'Exchange Status', 'Inspect Senten ↔ LaunchProof assurance exchange history.'],
-  ['senten.launchproof-export', 'Export Assurance', 'Create a digest-bound Senten assurance exchange for LaunchProof.'],
+  ['senten.launchproof-status', 'Exchange Status', 'Inspect Senten ↔ Drantis assurance exchange history.'],
+  ['senten.launchproof-export', 'Export Assurance', 'Create a digest-bound Senten assurance exchange for Drantis.'],
   ['git.status', 'Git Status', 'Read repository Git status.'],
   ['docker.version', 'Docker Version', 'Check the local Docker client used by isolated verification.'],
 ];
@@ -24,7 +24,7 @@ const operations = [
 function requireInvoke() {
   if (!invoke)
     throw new Error(
-      'Tauri native bridge is unavailable. This surface must run inside LaunchProof Desktop.',
+      'Tauri native bridge is unavailable. This surface must run inside Drantis Desktop.',
     );
 }
 
@@ -71,7 +71,7 @@ for (const [id, label, description] of operations) {
         result.stderr ? `\n[stderr]\n${result.stderr}` : '',
       ].join('\n');
     } catch (error) {
-      output.textContent = `LaunchProof desktop error:\n${String(error)}`;
+      output.textContent = `Drantis desktop error:\n${String(error)}`;
     }
   });
   operationsRoot.appendChild(button);
