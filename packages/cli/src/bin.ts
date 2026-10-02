@@ -7,7 +7,7 @@ import {
   parseSentenAssuranceExchange,
   signLaunchProofVerificationResult,
 } from '@launchproof/integrations';
-import { launchProofCapabilities } from '@launchproof/core';
+import { drantisCapabilities, launchProofCapabilities } from '@launchproof/core';
 import { analyzeRepository, formatReport, toSarif } from './index.js';
 
 const args = process.argv.slice(2);
@@ -151,7 +151,7 @@ async function sentenCommand() {
 
 async function main() {
   if (command === 'capabilities') {
-    console.log(JSON.stringify(launchProofCapabilities(), null, 2));
+    console.log(JSON.stringify(has('--legacy') ? launchProofCapabilities() : drantisCapabilities(), null, 2));
     return;
   }
 
