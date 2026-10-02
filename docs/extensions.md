@@ -1,16 +1,16 @@
 # Extensions
 
-LaunchProof Core consumes normalized assurance concepts. Language, framework, platform and external-tool knowledge belongs behind extension contracts.
+Drantis Core consumes normalized assurance concepts. Language, framework, platform and external-tool knowledge belongs behind extension contracts.
 
 ## v1 contracts
 
 Public contracts include `Analyzer`, `LanguageAdapter`, `FrameworkAdapter`, `PlatformAdapter`, `ScannerAdapter`, `EvidenceImporter`, `EvidenceProducer`, `IntelligenceProvider`, `Reporter` and `IsolatedRunner`.
 
-Every formal extension declares an `ExtensionManifest` using `apiVersion: launchproof.dev/v1`, a stable ID/version, capabilities and a LaunchProof Core compatibility range. Unknown capabilities and duplicate registered IDs fail closed.
+Every formal extension declares an `ExtensionManifest` using `apiVersion: launchproof.dev/v1`, a stable ID/version, capabilities and a Drantis Core compatibility range. Unknown capabilities and duplicate registered IDs fail closed.
 
 Current capabilities cover language/framework/platform detection, architecture, policy, invariants, evidence, graph contribution, controls, runtime verification, scanner import and reporting.
 
-Extensions emit normalized evidence/findings/graph artifacts; they do not mutate Release Decisions directly. Stable IDs and version strings are required for provenance. Imported external evidence cannot independently mint LaunchProof `VERIFIED` certainty.
+Extensions emit normalized evidence/findings/graph artifacts; they do not mutate Release Decisions directly. Stable IDs and version strings are required for provenance. Imported external evidence cannot independently mint Drantis `VERIFIED` certainty.
 
 ## Evidence interchange
 
