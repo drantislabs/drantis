@@ -15,8 +15,8 @@ const operations = [
   ['senten.proof', 'Senten Proof', 'Inspect Senten guarantee/evidence status without promoting it to Drantis verification.'],
   ['senten.runtime-alignment', 'Runtime Alignment', 'Compare Senten runtime observations with declared semantic subjects.'],
   ['senten.assurance-claims', 'Assurance Claims', 'List Senten assurance claims available for independent verification.'],
-  ['senten.launchproof-status', 'Exchange Status', 'Inspect Senten ↔ Drantis assurance exchange history.'],
-  ['senten.launchproof-export', 'Export Assurance', 'Create a digest-bound Senten assurance exchange for Drantis.'],
+  ['senten.drantis-status', 'Exchange Status', 'Inspect Senten ↔ Drantis assurance exchange history.'],
+  ['senten.drantis-export', 'Export Assurance', 'Create a digest-bound Senten assurance exchange for Drantis.'],
   ['git.status', 'Git Status', 'Read repository Git status.'],
   ['docker.version', 'Docker Version', 'Check the local Docker client used by isolated verification.'],
 ];
