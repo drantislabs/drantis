@@ -28,7 +28,7 @@ export function drantisCapabilities(): DrantisCapabilityDocument {
     surfaces: [...surfaces],
     commands: [...commands],
     protocols: {
-      genericEvidence: 'launchproof-evidence/v1',
+      genericEvidence: 'drantis-evidence/v1',
       sentenAssuranceExchange: '0.1',
       sentenVerificationResult: 'launchproof-verification-result/0.1',
       sarif: '2.1.0',
@@ -47,6 +47,8 @@ export function drantisCapabilities(): DrantisCapabilityDocument {
     },
     compatibility: {
       legacyCapabilitySchema: 'launchproof-capabilities/v1',
+      legacyGenericEvidenceSchema: 'launchproof-evidence/v1',
+      legacyExtensionApi: 'launchproof.dev/v1',
       legacyCliAlias: 'launchproof',
       sentenBridgeCommand: 'senten launchproof',
     },
