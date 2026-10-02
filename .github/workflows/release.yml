@@ -139,9 +139,9 @@ jobs:
       - name: Build and publish container
         run: |
           docker build \
-            -t ghcr.io/rubblmediagroup/drantis:1.0.0 \
+            -t ghcr.io/drantislabs/drantis:1.0.0 \
             -t ghcr.io/drantislabs/drantis:latest .
-          docker push ghcr.io/rubblmediagroup/drantis:1.0.0
+          docker push ghcr.io/drantislabs/drantis:1.0.0
           docker push ghcr.io/drantislabs/drantis:latest
       - name: Publish GitHub Release
         env:
