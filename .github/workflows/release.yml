@@ -35,8 +35,8 @@ jobs:
       - run: npm audit --omit=dev --audit-level=high
       - name: Build web and CLI
         run: |
-          npm run build -w @launchproof/web
-          npm run build -w @launchproof/cli
+          npm run build:web
+          npm run build:cli
       - name: Controlled release evidence
         run: |
           npm run cli -- analyze scenarios/production-reference --json /tmp/reference.json
@@ -92,7 +92,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: npm ci --ignore-scripts
       - run: node scripts/assert-release-version.mjs 1.0.0
-      - run: npm run build -w @launchproof/desktop
+      - run: npm run build:desktop
       - uses: actions/upload-artifact@v4
         with:
           name: drantis-windows
@@ -116,7 +116,7 @@ jobs:
       - name: Build CLI package
         run: |
           mkdir -p release-artifacts
-          npm run build -w @launchproof/cli
+          npm run build:cli
           npm pack -w @launchproof/cli --pack-destination release-artifacts
       - name: Generate CycloneDX SBOM
         run: npm sbom --sbom-format cyclonedx > release-artifacts/drantis-1.0.0-sbom.cdx.json
