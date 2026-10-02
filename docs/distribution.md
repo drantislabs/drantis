@@ -1,6 +1,6 @@
 # Distribution
 
-LaunchProof Core is shared across official surfaces.
+Drantis Core is shared across official surfaces.
 
 ## CLI
 
@@ -12,13 +12,13 @@ Docker Compose is the canonical self-hosted web distribution. The container is r
 
 ## Desktop
 
-`apps/desktop` is an experimental Tauri 2 shell with a narrow native boundary. It is architected to delegate analysis to LaunchProof Core rather than reimplement it in Rust.
+`apps/desktop` is an experimental Tauri 2 shell with a narrow native boundary. It is architected to delegate analysis to Drantis Core rather than reimplement it in Rust.
 
 ## Showcase
 
 The hosted-compatible UI analyzes only authorized targets and controlled scenarios.
 
-There is one normalized LaunchProof report model across surfaces, and no surface requires LaunchProof cloud or an LLM.
+There is one normalized Drantis report model across surfaces, and no surface requires Drantis cloud or an LLM.
 
 ## Self-hosted UI repository analysis
 
