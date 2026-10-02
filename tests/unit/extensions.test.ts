@@ -5,7 +5,7 @@ import type {
   RepositorySnapshot,
 } from '@launchproof/core';
 import {
-  LaunchProofEvidenceImporter,
+  DrantisEvidenceImporter,
   SentenPlatformAdapter,
   validateExtensionManifest,
 } from '@launchproof/integrations';
@@ -38,7 +38,7 @@ describe('extension contracts', () => {
   it('rejects unknown extension capabilities', () => {
     expect(() =>
       validateExtensionManifest({
-        apiVersion: 'launchproof.dev/v1',
+        apiVersion: 'drantis.dev/v1',
         kind: 'PlatformAdapter',
         metadata: { id: 'bad-extension', version: '1.0.0' },
         capabilities: ['architecture', 'made-up' as never],
@@ -82,7 +82,7 @@ describe('extension contracts', () => {
 
 describe('evidence interchange', () => {
   const envelope = (commit = 'abc123'): EvidenceInterchangeEnvelope => ({
-    schema: 'launchproof-evidence/v1',
+    schema: 'drantis-evidence/v1',
     producer: { id: 'senten', version: '1.0.3' },
     repository: { name: 'demo', branch: 'main', commit },
     generatedAt: '2026-09-17T00:00:00Z',
@@ -109,9 +109,9 @@ describe('evidence interchange', () => {
     ],
   });
 
-  it('downgrades upstream VERIFIED evidence because imported tools cannot mint LaunchProof verification', () => {
+  it('downgrades upstream VERIFIED evidence because imported tools cannot mint Drantis verification', () => {
     const repo = snapshot({});
-    const output = new LaunchProofEvidenceImporter().import(
+    const output = new DrantisEvidenceImporter().import(
       JSON.stringify(envelope()),
       context(repo),
     );
@@ -127,7 +127,7 @@ describe('evidence interchange', () => {
   it('rejects evidence generated for another commit', () => {
     const repo = snapshot({}, 'expected');
     expect(() =>
-      new LaunchProofEvidenceImporter().import(
+      new DrantisEvidenceImporter().import(
         JSON.stringify(envelope('different')),
         context(repo),
       ),
@@ -139,7 +139,7 @@ describe('evidence interchange', () => {
     const doc = envelope();
     doc.evidence[0] = { ...doc.evidence[0]!, source: { path: '../outside.txt' } };
     expect(() =>
-      new LaunchProofEvidenceImporter().import(JSON.stringify(doc), context(repo)),
+      new DrantisEvidenceImporter().import(JSON.stringify(doc), context(repo)),
     ).toThrow(/stay within the analyzed repository/i);
   });
 
@@ -158,7 +158,7 @@ describe('evidence interchange', () => {
       ],
       edges: [],
     };
-    const output = new LaunchProofEvidenceImporter().import(JSON.stringify(doc), context(repo));
+    const output = new DrantisEvidenceImporter().import(JSON.stringify(doc), context(repo));
     expect(output.graphNodes?.[0]?.id).not.toBe('node_route_collision');
     expect(output.graphNodes?.[0]?.metadata.upstreamNodeId).toBe('node_route_collision');
   });
