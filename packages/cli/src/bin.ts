@@ -151,7 +151,9 @@ async function sentenCommand() {
 
 async function main() {
   if (command === 'capabilities') {
-    console.log(JSON.stringify(has('--legacy') ? launchProofCapabilities() : drantisCapabilities(), null, 2));
+    console.log(
+      JSON.stringify(has('--legacy') ? launchProofCapabilities() : drantisCapabilities(), null, 2),
+    );
     return;
   }
 
