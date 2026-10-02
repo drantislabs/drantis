@@ -1,12 +1,12 @@
-# LaunchProof
+# Drantis
 
 **Build → Inspect → Prove → Ship.**
 
-LaunchProof is an Apache-2.0 software-assurance platform that asks one question:
+Drantis is an Apache-2.0 software-assurance platform that asks one question:
 
 > **What evidence do we actually have that this software is ready to release?**
 
-LaunchProof combines deterministic repository inspection, application-security analysis, architecture intelligence, normalized scanner evidence, a typed Application Security Graph, versioned controls, Assurance Cases, policy evaluation, deterministic Release Confidence, optional isolated verification, and optional evidence-grounded AI reasoning.
+Drantis combines deterministic repository inspection, application-security analysis, architecture intelligence, normalized scanner evidence, a typed Application Security Graph, versioned controls, Assurance Cases, policy evaluation, deterministic Release Confidence, optional isolated verification, and optional evidence-grounded AI reasoning.
 
 The product is built around three rules:
 
@@ -16,7 +16,7 @@ The product is built around three rules:
 
 ## Status
 
-**LaunchProof 1.0 release candidate.** The v0.2 architecture has been promoted into the first stable-release program: product UI, Senten interoperability, release automation, distribution and verification gates are being hardened before the `v1.0.0` tag.
+**Drantis 1.0 release candidate.** The v0.2 architecture has been promoted into the first stable-release program: product UI, Senten interoperability, release automation, distribution and verification gates are being hardened before the `v1.0.0` tag.
 
 | Capability                                                             | Status                              |
 | ---------------------------------------------------------------------- | ----------------------------------- |
@@ -38,9 +38,9 @@ The product is built around three rules:
 | Docker self-hosted web experience                                      | Implemented                         |
 | Tauri desktop shell                                                    | Experimental                        |
 | Broad language ecosystems                                              | Planned through extension contracts |
-| LaunchProof cloud requirement                                          | None                                |
+| Drantis cloud requirement                                          | None                                |
 
-A capability being implemented does **not** mean LaunchProof proves an application secure. See [`docs/limitations.md`](docs/limitations.md).
+A capability being implemented does **not** mean Drantis proves an application secure. See [`docs/limitations.md`](docs/limitations.md).
 
 ## Architecture
 
@@ -48,7 +48,7 @@ A capability being implemented does **not** mean LaunchProof proves an applicati
 Web / Desktop / CLI / CI / API
                │
                ▼
-        LaunchProof Core
+        Drantis Core
                │
    ┌───────────┼────────────┐
    ▼           ▼            ▼
@@ -76,7 +76,7 @@ Authorized dynamic verification
   constrained ephemeral Docker
 ```
 
-LaunchProof Core does not depend on the web UI. The web interface, CLI and future clients consume the same normalized report model.
+Drantis Core does not depend on the web UI. The web interface, CLI and future clients consume the same normalized report model.
 
 ## Safe analysis
 
@@ -95,8 +95,8 @@ Dynamic verification is separate and requires both policy configuration and expl
 
 ## Certainty
 
-- `DETECTED`: LaunchProof directly observed a structural fact or scanner result.
-- `INFERRED`: LaunchProof deterministically correlated evidence into a supported conclusion.
+- `DETECTED`: Drantis directly observed a structural fact or scanner result.
+- `INFERRED`: Drantis deterministically correlated evidence into a supported conclusion.
 - `VERIFIED`: an explicitly authorized deterministic verification capable of exercising the guarantee completed in an isolated runner.
 
 Static source indicators never become `VERIFIED` merely because they look convincing.
@@ -119,14 +119,14 @@ Analyzing a repository never installs that repository's dependencies.
 ### CLI
 
 ```bash
-launchproof analyze .
-launchproof analyze . --json .launchproof/report.json
-launchproof analyze . --sarif .launchproof/report.sarif
-launchproof analyze . --scanner semgrep-json:semgrep.json
-launchproof verify .
-launchproof verify . --allow-execution
-launchproof report .launchproof/report.json
-launchproof report .launchproof/report.json --format sarif
+drantis analyze .
+drantis analyze . --json .drantis/report.json
+drantis analyze . --sarif .drantis/report.sarif
+drantis analyze . --scanner semgrep-json:semgrep.json
+drantis verify .
+drantis verify . --allow-execution
+drantis report .drantis/report.json
+drantis report .drantis/report.json --format sarif
 ```
 
 `verify --allow-execution` is required before policy-configured dynamic commands may run. A configured allowlisted container image is also required.
@@ -140,38 +140,38 @@ Exit codes for `verify`:
 
 ### Senten 1.0.3 native assurance
 
-LaunchProof speaks Senten's stable assurance exchange directly:
+Drantis speaks Senten's stable assurance exchange directly. Senten 1.0.3 retains the historical `launchproof` command/protocol identifiers for compatibility:
 
 ```bash
 senten launchproof export
-launchproof senten inspect .senten/artifacts/assurance/<bundle>.senten-assurance.json
-launchproof senten verify .senten/artifacts/assurance/<bundle>.senten-assurance.json \
+drantis senten inspect .senten/artifacts/assurance/<bundle>.senten-assurance.json
+drantis senten verify .senten/artifacts/assurance/<bundle>.senten-assurance.json \
   --repo . \
-  --output .launchproof/launchproof-result.json
-senten launchproof import .launchproof/launchproof-result.json \
+  --output .drantis/launchproof-result.json
+senten launchproof import .drantis/launchproof-result.json \
   --source .senten/artifacts/assurance/<bundle>.senten-assurance.json
 ```
 
-For trusted independent verification, generate a LaunchProof Ed25519 key with
-`launchproof senten keygen .launchproof/keys`, trust the public key in Senten, and pass the
+For trusted independent verification, generate a Drantis Ed25519 key with
+`launchproof senten keygen .drantis/keys`, trust the public key in Senten, and pass the
 private key to `launchproof senten verify --sign-key ...`.
 
-LaunchProof never upgrades Senten's own `declared`, `observed`, `tested`, or `verified`
-records directly into LaunchProof `VERIFIED`. A Senten claim is returned as `verified` only
-when the mapped LaunchProof Assurance Case independently reaches `VERIFIED`.
+Drantis never upgrades Senten's own `declared`, `observed`, `tested`, or `verified`
+records directly into Drantis `VERIFIED`. A Senten claim is returned as `verified` only
+when the mapped Drantis Assurance Case independently reaches `VERIFIED`.
 
 ### Machine capability discovery
 
 ```bash
-launchproof capabilities
+drantis capabilities
 ```
 
 The `launchproof-capabilities/v1` document exposes supported surfaces and protocol versions for
-future clients such as LobeWork without requiring them to import LaunchProof internals.
+future clients such as LobeWork without requiring them to import Drantis internals.
 
 ## Scanner adapters
 
-LaunchProof normalizes outputs from mature tools instead of pretending to replace them:
+Drantis normalizes outputs from mature tools instead of pretending to replace them:
 
 - Semgrep → code/security findings;
 - Gitleaks → redacted secret findings;
@@ -204,13 +204,13 @@ The hosted-compatible Showcase UI currently exposes only server-authorized targe
 
 - Pipeline — Production Reference
 - Pipeline — Missing Tenant Authorization
-- LaunchProof — Self Analysis
+- Drantis — Self Analysis
 
 The controlled regression removes real authorization source from the fixture. The before/after view compares changed controls, Assurance Cases, findings and evidence rather than animating a fabricated score.
 
 ## AI / BYOM
 
-LaunchProof works without AI. Provider adapters exist for OpenAI, Anthropic, Gemini, Ollama and OpenAI-compatible endpoints. Repository context transmission is governed by:
+Drantis works without AI. Provider adapters exist for OpenAI, Anthropic, Gemini, Ollama and OpenAI-compatible endpoints. Repository context transmission is governed by:
 
 - `evidence-only`;
 - `relevant-context`;
@@ -231,7 +231,7 @@ The web container is read-only, drops Linux capabilities and uses `no-new-privil
 
 ## Desktop
 
-`apps/desktop` contains the Tauri 2 shell. The webview receives only minimal core permissions and narrow native commands. Raw process/filesystem/credential powers are not granted to the webview. Desktop analysis remains architecturally delegated to LaunchProof Core rather than reimplemented in Rust.
+`apps/desktop` contains the Tauri 2 shell. The webview receives only minimal core permissions and narrow native commands. Raw process/filesystem/credential powers are not granted to the webview. Desktop analysis remains architecturally delegated to Drantis Core rather than reimplemented in Rust.
 
 ## Repository layout
 
@@ -244,7 +244,7 @@ packages/
   analyzers/       deterministic TS/JS/Next/Supabase inspection
   evidence/        evidence creation + stable IDs
   graph/           typed Application Security Graph
-  standards/       LaunchProof Build Standard v0.1
+  standards/       Drantis Build Standard v0.1
   assurance/       controls + Assurance Cases
   policies/        strict .launchproof.yml parser + inheritance
   scoring/         deterministic weighted Release Confidence
@@ -259,7 +259,7 @@ scenarios/          controlled source fixtures
 
 ## Verification
 
-LaunchProof does not treat implementation as release verification. The `v1.0.0` tag remains gated by the acceptance matrix in [`docs/v1-release-plan.md`](docs/v1-release-plan.md).
+Drantis does not treat implementation as release verification. The `v1.0.0` tag remains gated by the acceptance matrix in [`docs/v1-release-plan.md`](docs/v1-release-plan.md).
 
 Before a release claim, run:
 
@@ -271,21 +271,25 @@ npm test
 npm run test:e2e
 npm run build -w @launchproof/web
 docker build .
-npm run cli -- analyze . --json .launchproof/self-report.json
+npm run cli -- analyze . --json .drantis/self-report.json
 ```
 
 If any command cannot run, that limitation must be reported rather than converted into a pass.
 
 ## Open source
 
-License: Apache-2.0. LaunchProof Core does not require a LaunchProof account, LaunchProof cloud, a commercial model API, or external source-code transmission.
+License: Apache-2.0. Drantis Core does not require a Drantis account, Drantis cloud, a commercial model API, or external source-code transmission.
+
+## Compatibility during the rename
+
+Drantis is the successor brand to LaunchProof. The `drantis` CLI is primary. The legacy `launchproof` CLI alias and Senten 1.0.3 `launchproof` protocol identifiers remain temporarily supported so existing assurance exchanges and trust workflows do not break during the transition.
 
 ## ThomasDSCX Labs
 
-LaunchProof is a flagship ThomasDSCX Labs project. Any public badge/report must reference a specific commit or controlled snapshot, analysis version and date. It is release evidence, **not permanent security certification**.
+Drantis is a flagship ThomasDSCX Labs project. Any public badge/report must reference a specific commit or controlled snapshot, analysis version and date. It is release evidence, **not permanent security certification**.
 
 ## Extensibility and Senten
 
-LaunchProof Core is platform-agnostic. LaunchProof 1.0 defines versioned language/framework/platform/evidence-importer contracts rather than teaching Core about every ecosystem. Senten is the first official platform adapter: LaunchProof can detect Senten structure, render intended architecture/invariants, preserve the generic `launchproof-evidence/v1` importer for extensions, and natively exchange Senten 1.0.3 `senten-assurance-exchange` / `launchproof-verification-result` artifacts without trusting Senten to mark LaunchProof controls as passed. See [`docs/senten-integration.md`](docs/senten-integration.md).
+Drantis Core is platform-agnostic. Drantis 1.0 defines versioned language/framework/platform/evidence-importer contracts rather than teaching Core about every ecosystem. Senten is the first official platform adapter: Drantis can detect Senten structure, render intended architecture/invariants, preserve the generic `launchproof-evidence/v1` importer for extensions, and natively exchange Senten 1.0.3 `senten-assurance-exchange` / `launchproof-verification-result` artifacts without trusting Senten to mark Drantis controls as passed. See [`docs/senten-integration.md`](docs/senten-integration.md).
 
-LaunchProof Desktop also exposes a narrow allowlisted native-operation bridge for Senten/Git/Docker diagnostics. It deliberately does **not** expose a free-form terminal or arbitrary shell execution to the webview.
+Drantis Desktop also exposes a narrow allowlisted native-operation bridge for Senten/Git/Docker diagnostics. It deliberately does **not** expose a free-form terminal or arbitrary shell execution to the webview.
