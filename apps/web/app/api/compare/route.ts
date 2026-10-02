@@ -4,7 +4,7 @@ import { rateLimit } from '../../../lib/rate-limit';
 import { publicError } from '../../../lib/request';
 import { analyzeAuthorizedScenario } from '../../../lib/showcase';
 
-// launchproof:public
+// drantis:public
 export async function POST(request: Request) {
   const limit = rateLimit(request, 'compare');
   if (!limit.ok)
