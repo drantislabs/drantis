@@ -6,24 +6,26 @@ import {
   type AnalysisReport,
 } from '@launchproof/core';
 import { createRepositorySnapshot, TypeScriptNextAnalyzer } from '@launchproof/analyzers';
-import { loadPolicy } from '@launchproof/policies';
+import { loadRepositoryPolicy } from '@launchproof/policies';
 import { SentenPlatformAdapter, analyzersFromPlatformAdapters } from '@launchproof/integrations';
 
 export function localAnalysisCapability() {
-  const configuredRoot = process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+  const configuredRoot = process.env.DRANTIS_REPOSITORY_ROOT ?? process.env.LAUNCHPROOF_REPOSITORY_ROOT;
   return {
-    enabled: process.env.LAUNCHPROOF_LOCAL_MODE === '1' && Boolean(configuredRoot),
+    enabled:
+      (process.env.DRANTIS_LOCAL_MODE ?? process.env.LAUNCHPROOF_LOCAL_MODE) === '1' &&
+      Boolean(configuredRoot),
     repositoryRootConfigured: Boolean(configuredRoot),
   };
 }
 
 function configuredRepositoryRoot(): string {
-  if (process.env.LAUNCHPROOF_LOCAL_MODE !== '1') {
+  if ((process.env.DRANTIS_LOCAL_MODE ?? process.env.LAUNCHPROOF_LOCAL_MODE) !== '1') {
     throw new Error('Local repository analysis is disabled.');
   }
-  const configured = process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+  const configured = process.env.DRANTIS_REPOSITORY_ROOT ?? process.env.LAUNCHPROOF_REPOSITORY_ROOT;
   if (!configured) {
-    throw new Error('LAUNCHPROOF_REPOSITORY_ROOT is not configured.');
+    throw new Error('DRANTIS_REPOSITORY_ROOT is not configured.');
   }
   return path.resolve(configured);
 }
@@ -33,7 +35,7 @@ function resolveAuthorizedRepository(relativePath: string): string {
     throw new Error('Repository path is required.');
   }
   if (path.isAbsolute(relativePath)) {
-    throw new Error('Repository path must be relative to LAUNCHPROOF_REPOSITORY_ROOT.');
+    throw new Error('Repository path must be relative to DRANTIS_REPOSITORY_ROOT.');
   }
   const allowedRoot = configuredRepositoryRoot();
   const resolved = path.resolve(allowedRoot, relativePath);
@@ -68,7 +70,7 @@ export async function analyzeAuthorizedLocalRepository(
   onProgress?: (event: AnalysisProgressEvent) => void | Promise<void>,
 ): Promise<AnalysisReport> {
   const root = resolveAuthorizedRepository(relativePath);
-  const policy = await loadPolicy(path.join(root, '.launchproof.yml'));
+  const policy = await loadRepositoryPolicy(root);
   const git = await readGitMeta(root);
   const snapshot = await createRepositorySnapshot(
     root,
