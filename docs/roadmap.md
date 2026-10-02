@@ -1,8 +1,8 @@
 # Roadmap
 
-## LaunchProof 1.0
+## Drantis 1.0
 
-LaunchProof is now being hardened toward the first public stable release rather than publishing the earlier v0.2 implementation candidate. The v0.2 work established the architecture; the 1.0 program turns that architecture into a dependable product and distribution.
+Drantis is now being hardened toward the first public stable release rather than publishing the earlier v0.2 implementation candidate. The v0.2 work established the architecture; the 1.0 program turns that architecture into a dependable product and distribution.
 
 ### 1. Core correctness and verification
 
@@ -10,14 +10,14 @@ LaunchProof is now being hardened toward the first public stable release rather 
 - clean install, formatting, lint, TypeScript, unit/integration/security tests;
 - production Next.js build and compiled CLI package;
 - controlled production-reference and missing-authorization regressions;
-- LaunchProof self-analysis;
+- Drantis self-analysis;
 - Playwright browser validation;
 - Docker build/Compose validation;
 - scanner-ingestion and isolated-runner checkpoints.
 
 ### 2. Product UI
 
-The web UI is a real LaunchProof client over the same normalized report model used by the CLI. The 1.0 interface includes:
+The web UI is a real Drantis client over the same normalized report model used by the CLI. The 1.0 interface includes:
 
 - release decision and domain scoring;
 - explicit blockers and release conditions;
@@ -39,7 +39,7 @@ Tauri remains the local developer shell. It validates repository paths and expos
 
 ### 4. Senten
 
-Senten remains independently useful. LaunchProof detects structured Senten declarations, imports commit-bound evidence, maps intended architecture/invariants into the graph, and correlates intended architecture with observed LaunchProof graph data. Imported Senten VERIFIED claims are never promoted directly to LaunchProof VERIFIED.
+Senten remains independently useful. Drantis detects structured Senten declarations, imports commit-bound evidence, maps intended architecture/invariants into the graph, and correlates intended architecture with observed Drantis graph data. Imported Senten VERIFIED claims are never promoted directly to Drantis VERIFIED.
 
 ### 5. Distribution
 
