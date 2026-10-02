@@ -1,6 +1,6 @@
 # Policy
 
-`.launchproof.yml` is parsed with a strict Zod schema. Unknown keys, invalid enums, oversized policy files and malformed YAML fail analysis rather than silently falling back.
+`.drantis.yml` is parsed with a strict Zod schema. Unknown keys, invalid enums, oversized policy files and malformed YAML fail analysis rather than silently falling back.
 
 Policy controls:
 
@@ -14,4 +14,9 @@ Policy controls:
 - AI data policy/provider allowlists;
 - explicitly authorized dynamic verification commands.
 
-`inheritPolicies()` implements deterministic layering: LaunchProof Standard → organization → repository → branch/release. The merged result is validated again before use.
+`inheritPolicies()` implements deterministic layering: Drantis Standard → organization → repository → branch/release. The merged result is validated again before use.
+
+
+## Legacy policy compatibility
+
+Drantis prefers `.drantis.yml`. During the rename compatibility window, `.launchproof.yml` is still accepted when the Drantis policy file is absent. If both exist, `.drantis.yml` takes precedence.
