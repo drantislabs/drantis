@@ -5,25 +5,33 @@ import { localAnalysisCapability } from '../../apps/web/lib/local-analysis';
 
 describe('public web security boundary', () => {
   it('keeps local repository analysis disabled unless both local mode and a repository root are configured', () => {
-    const previousMode = process.env.LAUNCHPROOF_LOCAL_MODE;
-    const previousRoot = process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+    const previousMode = process.env.DRANTIS_LOCAL_MODE;
+    const previousRoot = process.env.DRANTIS_REPOSITORY_ROOT;
+    const previousLegacyMode = process.env.LAUNCHPROOF_LOCAL_MODE;
+    const previousLegacyRoot = process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+    delete process.env.DRANTIS_LOCAL_MODE;
+    delete process.env.DRANTIS_REPOSITORY_ROOT;
     delete process.env.LAUNCHPROOF_LOCAL_MODE;
     delete process.env.LAUNCHPROOF_REPOSITORY_ROOT;
     expect(localAnalysisCapability().enabled).toBe(false);
 
-    process.env.LAUNCHPROOF_LOCAL_MODE = '1';
+    process.env.DRANTIS_LOCAL_MODE = '1';
     expect(localAnalysisCapability().enabled).toBe(false);
 
-    process.env.LAUNCHPROOF_REPOSITORY_ROOT = '/tmp/projects';
+    process.env.DRANTIS_REPOSITORY_ROOT = '/tmp/projects';
     expect(localAnalysisCapability()).toEqual({
       enabled: true,
       repositoryRootConfigured: true,
     });
 
-    if (previousMode === undefined) delete process.env.LAUNCHPROOF_LOCAL_MODE;
-    else process.env.LAUNCHPROOF_LOCAL_MODE = previousMode;
-    if (previousRoot === undefined) delete process.env.LAUNCHPROOF_REPOSITORY_ROOT;
-    else process.env.LAUNCHPROOF_REPOSITORY_ROOT = previousRoot;
+    if (previousMode === undefined) delete process.env.DRANTIS_LOCAL_MODE;
+    else process.env.DRANTIS_LOCAL_MODE = previousMode;
+    if (previousRoot === undefined) delete process.env.DRANTIS_REPOSITORY_ROOT;
+    else process.env.DRANTIS_REPOSITORY_ROOT = previousRoot;
+    if (previousLegacyMode === undefined) delete process.env.LAUNCHPROOF_LOCAL_MODE;
+    else process.env.LAUNCHPROOF_LOCAL_MODE = previousLegacyMode;
+    if (previousLegacyRoot === undefined) delete process.env.LAUNCHPROOF_REPOSITORY_ROOT;
+    else process.env.LAUNCHPROOF_REPOSITORY_ROOT = previousLegacyRoot;
   });
 
   it('does not trust x-forwarded-for unless the host explicitly configures that header', () => {
