@@ -27,7 +27,7 @@ function resolveInvocation(command, commandArgs) {
   return { executable: command, args: commandArgs };
 }
 
-function runGate(name, command, commandArgs = []) {
+function runGate(name, command, commandArgs = [], acceptedExitCodes = [0]) {
   const safe = name.replace(/[^A-Za-z0-9._-]/g, '-');
   const logPath = join(logRoot, `${safe}.log`);
   const display = `${command} ${commandArgs.join(' ')}`.trim();
@@ -50,7 +50,7 @@ function runGate(name, command, commandArgs = []) {
     throw result.error;
   }
   const code = result.status ?? 1;
-  if (code !== 0) {
+  if (!acceptedExitCodes.includes(code)) {
     console.error(`[LaunchProof 1.0 RC] FAIL ${name} (exit ${code})`);
     console.error(`Log: ${logPath}`);
     process.exit(code);
@@ -167,18 +167,23 @@ runGate('scanner-fixture-analysis', 'npm', [
 ]);
 runGate('scanner-fixture-assertions', 'npm', ['run', 'verify:scanners', '--', scannerReport]);
 const sentenNativeResult = join(logRoot, 'senten-native-result.json');
-runGate('senten-native-assurance', 'npm', [
-  'run',
-  'cli',
-  '--',
-  'senten',
-  'verify',
-  'tests/fixtures/senten/assurance-exchange.json',
-  '--repo',
-  'scenarios/production-reference',
-  '--output',
-  sentenNativeResult,
-]);
+runGate(
+  'senten-native-assurance',
+  'npm',
+  [
+    'run',
+    'cli',
+    '--',
+    'senten',
+    'verify',
+    'tests/fixtures/senten/assurance-exchange.json',
+    '--repo',
+    'scenarios/production-reference',
+    '--output',
+    sentenNativeResult,
+  ],
+  [0, 1],
+);
 runGate('senten-native-assurance-assertions', 'npm', [
   'run',
   'verify:senten-interop',
