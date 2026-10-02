@@ -2,7 +2,7 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { analyzeSnapshot, type AnalysisReport, type Analyzer } from '@launchproof/core';
 import { createRepositorySnapshot, TypeScriptNextAnalyzer } from '@launchproof/analyzers';
-import { loadPolicy } from '@launchproof/policies';
+import { loadRepositoryPolicy } from '@launchproof/policies';
 import {
   DockerEphemeralRunner,
   ScannerOutputAnalyzer,
@@ -47,7 +47,7 @@ export async function analyzeRepository(
 ): Promise<AnalysisReport> {
   const absolute = path.resolve(root);
   const git = await readGitMeta(absolute);
-  const policy = await loadPolicy(path.join(absolute, '.launchproof.yml'));
+  const policy = await loadRepositoryPolicy(absolute);
   const snapshot = await createRepositorySnapshot(
     absolute,
     { repository: path.basename(absolute), ...git },
