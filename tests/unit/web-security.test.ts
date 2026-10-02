@@ -58,7 +58,9 @@ describe('public web security boundary', () => {
   });
 
   it('does not trust x-forwarded-for unless the host explicitly configures that header', () => {
-    const previous = process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
+    const previous = process.env.DRANTIS_CLIENT_IP_HEADER;
+    const previousLegacy = process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
+    delete process.env.DRANTIS_CLIENT_IP_HEADER;
     delete process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
     const scope = `test-${Date.now()}-${Math.random()}`;
     let result = { ok: true, retryAfterSeconds: 0 };
@@ -69,8 +71,10 @@ describe('public web security boundary', () => {
       );
     }
     expect(result.ok).toBe(false);
-    if (previous === undefined) delete process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
-    else process.env.LAUNCHPROOF_CLIENT_IP_HEADER = previous;
+    if (previous === undefined) delete process.env.DRANTIS_CLIENT_IP_HEADER;
+    else process.env.DRANTIS_CLIENT_IP_HEADER = previous;
+    if (previousLegacy === undefined) delete process.env.LAUNCHPROOF_CLIENT_IP_HEADER;
+    else process.env.LAUNCHPROOF_CLIENT_IP_HEADER = previousLegacy;
   });
 
   it('does not expose unexpected internal error messages to public callers', () => {
