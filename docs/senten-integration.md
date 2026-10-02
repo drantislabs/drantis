@@ -140,7 +140,7 @@ Drantis now exposes:
 drantis capabilities
 ```
 
-The machine-readable `launchproof-capabilities/v1` document advertises supported surfaces and assurance protocol versions. This gives LobeWork a future discovery boundary without coupling LobeWork to Drantis's internal package graph or Tauri implementation.
+The machine-readable `drantis-capabilities/v1` document advertises supported surfaces and assurance protocol versions. This gives LobeWork a future discovery boundary without coupling LobeWork to Drantis's internal package graph or Tauri implementation.
 
 A future LobeWork integration should consume Drantis through versioned capability/report/assurance contracts, not by importing Drantis internals.
 
