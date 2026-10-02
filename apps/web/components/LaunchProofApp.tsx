@@ -178,7 +178,7 @@ export function DrantisApp() {
               title={
                 localModeAvailable
                   ? 'Analyze a repository below the configured local repository root.'
-                  : 'Enable LAUNCHPROOF_LOCAL_MODE and LAUNCHPROOF_REPOSITORY_ROOT on a self-hosted instance.'
+                  : 'Enable DRANTIS_LOCAL_MODE and DRANTIS_REPOSITORY_ROOT on a self-hosted instance.'
               }
             >
               Local repository
