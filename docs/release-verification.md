@@ -1,10 +1,10 @@
 # Release verification
 
-LaunchProof does not treat implementation as release verification. A 1.0 release candidate must be exercised from a clean, networked machine with the supported toolchain.
+Drantis does not treat implementation as release verification. A 1.0 release candidate must be exercised from a clean, networked machine with the supported toolchain.
 
 ## Runtime lanes
 
-LaunchProof 1.0 uses Node.js 24.x LTS as the release-verification baseline and Node.js 26.x as the required forward-compatibility lane. Public CI must pass both.
+Drantis 1.0 uses Node.js 24.x LTS as the release-verification baseline and Node.js 26.x as the required forward-compatibility lane. Public CI must pass both.
 
 From a clean checkout with the committed lockfile:
 
@@ -34,7 +34,7 @@ The baseline runs:
 - production-reference and broken-tenant-authorization regression scenarios;
 - the Senten structured architecture/evidence scenario;
 - Semgrep, Gitleaks, OSV and Trivy normalization fixtures;
-- LaunchProof self-analysis.
+- Drantis self-analysis.
 
 With `--e2e --docker`, the harness additionally runs Playwright, Docker build/Compose validation and a real explicitly authorized Docker-isolated verification using an immutable image ID and network disabled.
 
