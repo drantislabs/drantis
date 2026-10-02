@@ -153,3 +153,8 @@ Before Drantis 1.0 is tagged, the following still require real-machine evidence:
 - a real `senten launchproof export → drantis senten verify → senten launchproof import` round trip;
 - trusted-key import producing Senten strength-4 evidence only when Drantis actually returned a verified claim;
 - desktop packaging and icon completion.
+
+
+## Legacy Senten protocol identifiers
+
+Senten 1.0.3 shipped its native bridge before the Drantis rename. Commands such as `senten launchproof export`, the `launchproof-verification-result` schema, and the `launchproof` trusted-publisher convention remain supported compatibility identifiers. Drantis treats these as protocol names, not product branding, until a coordinated Senten protocol revision is released.
