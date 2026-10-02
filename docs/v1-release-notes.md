@@ -1,10 +1,10 @@
-# LaunchProof 1.0 release notes
+# Drantis 1.0 release notes
 
 Status: **release candidate — do not publish as stable until every mandatory gate is evidenced.**
 
 ## What 1.0 delivers
 
-LaunchProof 1.0 turns repository inspection into an evidence-backed release decision. The stable release is intended to include:
+Drantis 1.0 turns repository inspection into an evidence-backed release decision. The stable release is intended to include:
 
 - deterministic TypeScript/JavaScript, Node.js, React, Next.js and Supabase-aware analysis;
 - a typed Application Security Graph;
@@ -26,13 +26,13 @@ npm publication remains a separate explicit decision. The monorepo's internal pa
 
 ## Known boundaries
 
-LaunchProof is not a permanent security certification. A result applies to the analyzed snapshot, policy, evidence and toolchain.
+Drantis is not a permanent security certification. A result applies to the analyzed snapshot, policy, evidence and toolchain.
 
 Deep deterministic framework support in 1.0 is intentionally concentrated on the TypeScript/JavaScript and Next.js/Supabase ecosystem. Other ecosystems use the versioned extension contracts and must not be represented as deeply supported until adapters are implemented and verified.
 
 Static analysis does not prove runtime behavior. `VERIFIED` certainty requires explicitly authorized deterministic verification capable of exercising the relevant guarantee.
 
-Scanner adapters normalize supplied scanner results. LaunchProof does not silently execute third-party scanners during ordinary static analysis.
+Scanner adapters normalize supplied scanner results. Drantis does not silently execute third-party scanners during ordinary static analysis.
 
 AI is optional. External providers receive repository material only under the selected data-governance policy, and model output cannot change controls, Assurance Cases or release decisions.
 
