@@ -37,4 +37,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`FAIL: ${failure}`);
   process.exit(2);
 }
-console.log(`PASS: all LaunchProof workspace manifests are version ${expected}`);
+console.log(`PASS: all Drantis workspace manifests are version ${expected}`);
