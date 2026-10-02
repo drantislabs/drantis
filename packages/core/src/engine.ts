@@ -110,7 +110,7 @@ export async function analyzeSnapshot(
     certainty: 'DETECTED',
     title: 'Analysis provenance recorded',
     description:
-      'LaunchProof recorded repository, commit, policy, analyzer identities, and analysis version.',
+      'Drantis recorded repository, commit, policy, analyzer identities, and analysis version.',
     analyzer: { id: 'launchproof-core', version },
     provenance,
     data: {
