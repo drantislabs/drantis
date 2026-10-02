@@ -42,7 +42,7 @@ export type ExtensionKind =
   | 'EvidenceImporter'
   | 'Reporter';
 export interface ExtensionManifest {
-  apiVersion: 'launchproof.dev/v1';
+  apiVersion: 'drantis.dev/v1' | 'launchproof.dev/v1';
   kind: ExtensionKind;
   metadata: { id: string; version: string; displayName?: string; vendor?: string };
   capabilities: ExtensionCapability[];
@@ -61,7 +61,7 @@ export interface AssuranceClaim {
 }
 
 export interface EvidenceInterchangeEnvelope {
-  schema: 'launchproof-evidence/v1';
+  schema: 'drantis-evidence/v1' | 'launchproof-evidence/v1';
   producer: AnalyzerIdentity & { name?: string };
   repository: { name?: string; branch?: string; commit: string };
   generatedAt: string;
@@ -170,7 +170,7 @@ export interface DrantisCapabilityDocument {
   surfaces: Array<'cli' | 'web' | 'desktop' | 'docker'>;
   commands: string[];
   protocols: {
-    genericEvidence: 'launchproof-evidence/v1';
+    genericEvidence: 'drantis-evidence/v1';
     sentenAssuranceExchange: '0.1';
     sentenVerificationResult: 'launchproof-verification-result/0.1';
     sarif: '2.1.0';
@@ -189,6 +189,8 @@ export interface DrantisCapabilityDocument {
   };
   compatibility: {
     legacyCapabilitySchema: 'launchproof-capabilities/v1';
+    legacyGenericEvidenceSchema: 'launchproof-evidence/v1';
+    legacyExtensionApi: 'launchproof.dev/v1';
     legacyCliAlias: 'launchproof';
     sentenBridgeCommand: 'senten launchproof';
   };
@@ -230,7 +232,7 @@ export interface VerificationCommandPolicy {
   image?: string | undefined;
 }
 
-export interface LaunchProofPolicyShape {
+export interface DrantisPolicyShape {
   version: 1;
   analysis?: { excludePaths?: string[] };
   assurance: { requiredDomains: AssuranceDomain[] };
@@ -256,6 +258,9 @@ export interface LaunchProofPolicyShape {
   ai: { dataPolicy: AIDataPolicy; allowedProviders?: string[] };
   verification?: { enabled: boolean; commands: VerificationCommandPolicy[] };
 }
+
+/** @deprecated Use DrantisPolicyShape for new integrations. */
+export type LaunchProofPolicyShape = DrantisPolicyShape;
 
 export interface SourceLocation {
   path: string;
