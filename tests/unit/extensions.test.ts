@@ -47,6 +47,18 @@ describe('extension contracts', () => {
     ).toThrow(/unknown extension capability/i);
   });
 
+  it('accepts the legacy LaunchProof extension API during the Drantis transition', () => {
+    expect(
+      validateExtensionManifest({
+        apiVersion: 'launchproof.dev/v1',
+        kind: 'PlatformAdapter',
+        metadata: { id: 'legacy-extension', version: '1.0.0' },
+        capabilities: ['architecture'],
+        compatibility: { core: '>=1.0.0-rc.1 <2.0.0' },
+      }).apiVersion,
+    ).toBe('launchproof.dev/v1');
+  });
+
   it('detects Senten only from structured project declarations and renders intended architecture', () => {
     const repo = snapshot({
       'package.json': JSON.stringify({ devDependencies: { senten: '1.0.3' } }),
@@ -122,6 +134,14 @@ describe('evidence interchange', () => {
       output.evidence.find((item) => item.kind === 'imported.assurance-claim')?.certainty,
     ).toBe('INFERRED');
     expect(output.evidence.some((item) => item.certainty === 'VERIFIED')).toBe(false);
+  });
+
+  it('accepts legacy launchproof-evidence/v1 during the compatibility window', () => {
+    const repo = snapshot({});
+    const doc = envelope();
+    doc.schema = 'launchproof-evidence/v1';
+    const output = new DrantisEvidenceImporter().import(JSON.stringify(doc), context(repo));
+    expect(output.evidence.length).toBeGreaterThan(0);
   });
 
   it('rejects evidence generated for another commit', () => {
