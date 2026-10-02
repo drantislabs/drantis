@@ -28,7 +28,7 @@ The product is built around three rules:
 | LP-01 through LP-20 evaluators                                         | Implemented                         |
 | Assurance Cases                                                        | Implemented                         |
 | Deterministic Release Confidence + hard gates                          | Implemented                         |
-| `.launchproof.yml` fail-closed policy                                  | Implemented                         |
+| `.drantis.yml` fail-closed policy                                  | Implemented                         |
 | Semgrep/Gitleaks/OSV/Trivy result adapters                             | Implemented                         |
 | Isolated Docker verification runner                                    | Implemented, opt-in                 |
 | Before/after regression comparison                                     | Implemented                         |
@@ -153,8 +153,8 @@ senten launchproof import .drantis/launchproof-result.json \
 ```
 
 For trusted independent verification, generate a Drantis Ed25519 key with
-`launchproof senten keygen .drantis/keys`, trust the public key in Senten, and pass the
-private key to `launchproof senten verify --sign-key ...`.
+`drantis senten keygen .drantis/keys`, trust the public key in Senten, and pass the
+private key to `drantis senten verify --sign-key ...`.
 
 Drantis never upgrades Senten's own `declared`, `observed`, `tested`, or `verified`
 records directly into Drantis `VERIFIED`. A Senten claim is returned as `verified` only
@@ -166,7 +166,7 @@ when the mapped Drantis Assurance Case independently reaches `VERIFIED`.
 drantis capabilities
 ```
 
-The `launchproof-capabilities/v1` document exposes supported surfaces and protocol versions for
+The `drantis-capabilities/v1` document exposes supported surfaces and protocol versions for
 future clients such as LobeWork without requiring them to import Drantis internals.
 
 ## Scanner adapters
@@ -284,9 +284,9 @@ License: Apache-2.0. Drantis Core does not require a Drantis account, Drantis cl
 
 Drantis is the successor brand to LaunchProof. The `drantis` CLI is primary. The legacy `launchproof` CLI alias and Senten 1.0.3 `launchproof` protocol identifiers remain temporarily supported so existing assurance exchanges and trust workflows do not break during the transition.
 
-## ThomasDSCX Labs
+## Drantis Labs
 
-Drantis is a flagship ThomasDSCX Labs project. Any public badge/report must reference a specific commit or controlled snapshot, analysis version and date. It is release evidence, **not permanent security certification**.
+Drantis is developed by **Drantis Labs, a Rubbl Media Group company**. ThomasDSCX remains part of the project's creator/contributor lineage. Any public badge or report must reference a specific commit or controlled snapshot, analysis version and date. It is release evidence, **not permanent security certification**.
 
 ## Extensibility and Senten
 
