@@ -94,7 +94,7 @@ export async function analyzeRepository(
 
 export function formatReport(report: AnalysisReport): string {
   const lines = [
-    `LaunchProof ${report.provenance.launchProofVersion}`,
+    `Drantis ${report.provenance.launchProofVersion}`,
     `${report.provenance.repository}@${report.provenance.commit.slice(0, 12)}`,
     `Decision: ${report.release.status} (${report.release.score}/100)`,
     `Coverage: ${report.release.coverage ?? 0}%`,
@@ -127,9 +127,9 @@ export function toSarif(report: AnalysisReport) {
       {
         tool: {
           driver: {
-            name: 'LaunchProof',
+            name: 'Drantis',
             version: report.provenance.launchProofVersion,
-            informationUri: 'https://github.com/rubblmediagroup/launchproof',
+            informationUri: 'https://github.com/drantislabs/drantis',
             rules,
           },
         },
