@@ -111,7 +111,7 @@ npm ci --ignore-scripts
 npm run typecheck
 npm test
 npm run cli -- analyze scenarios/production-reference
-npm run dev -w @launchproof/web
+npm run dev:web
 ```
 
 Analyzing a repository never installs that repository's dependencies.
@@ -269,7 +269,7 @@ npm run lint
 npm run typecheck
 npm test
 npm run test:e2e
-npm run build -w @launchproof/web
+npm run build:web
 docker build .
 npm run cli -- analyze . --json .drantis/self-report.json
 ```
