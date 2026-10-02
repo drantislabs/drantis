@@ -22,7 +22,7 @@ RUN --mount=type=cache,target=/root/.npm npm ci --ignore-scripts
 
 FROM deps AS build
 COPY . .
-RUN npm run typecheck && npm run build -w @launchproof/web
+RUN npm run typecheck && npm run build:web
 
 FROM node:24-alpine AS runtime
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1

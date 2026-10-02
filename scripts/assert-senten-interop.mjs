@@ -8,8 +8,8 @@ if (!bundlePath || !resultPath) {
 const bundle = JSON.parse(readFileSync(bundlePath, 'utf8'));
 const result = JSON.parse(readFileSync(resultPath, 'utf8'));
 const failures = [];
-if (result.schemaVersion !== '0.1') failures.push('unexpected LaunchProof result schema');
-if (result.kind !== 'launchproof-verification-result') failures.push('unexpected LaunchProof result kind');
+if (result.schemaVersion !== '0.1') failures.push('unexpected Drantis-compatible result schema');
+if (result.kind !== 'launchproof-verification-result') failures.push('unexpected Drantis-compatible result kind');
 if (result.sourceBundleId !== bundle.id) failures.push('source bundle id mismatch');
 if (result.sourceBundleDigest !== bundle.digest) failures.push('source bundle digest mismatch');
 if (result.verifier?.name !== 'LaunchProof') failures.push('verifier name is not LaunchProof');
@@ -22,5 +22,5 @@ if (failures.length) {
   process.exit(2);
 }
 console.log(
-  `PASS: Senten ${bundle.sentenVersion} exchange → LaunchProof result ${result.id}; claims=${result.results.length}`,
+  `PASS: Senten ${bundle.sentenVersion} exchange → Drantis result ${result.id}; claims=${result.results.length}`,
 );

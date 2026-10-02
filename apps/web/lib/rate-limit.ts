@@ -4,7 +4,11 @@ const LIMIT = 20;
 const MAX_BUCKETS = 5_000;
 
 function configuredClientIdentity(request: Request): string {
-  const configuredHeader = process.env.LAUNCHPROOF_CLIENT_IP_HEADER?.trim().toLowerCase();
+  const configuredHeader = (
+    process.env.DRANTIS_CLIENT_IP_HEADER ?? process.env.LAUNCHPROOF_CLIENT_IP_HEADER
+  )
+    ?.trim()
+    .toLowerCase();
   if (!configuredHeader) return 'anonymous';
   const raw = request.headers.get(configuredHeader)?.split(',')[0]?.trim() ?? '';
   return /^[a-zA-Z0-9:._-]{1,128}$/.test(raw) ? raw : 'anonymous';

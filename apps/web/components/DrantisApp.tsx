@@ -31,7 +31,7 @@ const stageForPhase: Record<AnalysisProgressEvent['phase'], number> = {
   complete: 5,
 };
 
-export function LaunchProofApp() {
+export function DrantisApp() {
   const [scenario, setScenario] = useState('production-reference');
   const [analysisSource, setAnalysisSource] = useState<'showcase' | 'local'>('showcase');
   const [localPath, setLocalPath] = useState('.');
@@ -138,10 +138,10 @@ export function LaunchProofApp() {
     <main>
       <header className="top">
         <div className="brand">
-          <span className="mark">LP</span>
+          <span className="mark">DR</span>
           <div>
-            <strong>LaunchProof</strong>
-            <small>ThomasDSCX Labs / open source</small>
+            <strong>Drantis</strong>
+            <small>Drantis Labs / A Rubbl Media Group company</small>
           </div>
         </div>
         <div className="principle">
@@ -155,7 +155,7 @@ export function LaunchProofApp() {
             Build <i>→</i> Inspect <i>→</i> Prove <i>→</i> Ship.
           </h1>
           <p>
-            LaunchProof establishes what evidence actually exists that software is ready to release.
+            Drantis establishes what evidence actually exists that software is ready to release.
             Deterministic analysis drives every control, claim and release gate; AI can explain
             evidence, never manufacture a pass.
           </p>
@@ -178,7 +178,7 @@ export function LaunchProofApp() {
               title={
                 localModeAvailable
                   ? 'Analyze a repository below the configured local repository root.'
-                  : 'Enable LAUNCHPROOF_LOCAL_MODE and LAUNCHPROOF_REPOSITORY_ROOT on a self-hosted instance.'
+                  : 'Enable DRANTIS_LOCAL_MODE and DRANTIS_REPOSITORY_ROOT on a self-hosted instance.'
               }
             >
               Local repository
@@ -196,7 +196,7 @@ export function LaunchProofApp() {
                 <option value="missing-tenant-authorization">
                   Pipeline — Missing Tenant Authorization
                 </option>
-                <option value="launchproof-self">LaunchProof — Self Analysis</option>
+                <option value="drantis-self">Drantis — Self Analysis</option>
                 <option value="senten-reference">Senten — Integration Contract</option>
               </select>
             </label>
@@ -252,7 +252,7 @@ export function LaunchProofApp() {
           <h2>Ready to establish evidence.</h2>
           <p>
             Select an explicitly authorized snapshot. The report below is generated from the actual
-            source artifacts LaunchProof can observe.
+            source artifacts Drantis can observe.
           </p>
         </section>
       )}
@@ -312,7 +312,7 @@ function exportReport(report: AnalysisReport) {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;
-  anchor.download = `launchproof-${report.provenance.commit || 'worktree'}.json`;
+  anchor.download = `drantis-${report.provenance.commit || 'worktree'}.json`;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
@@ -373,7 +373,7 @@ function Report({
         <span>{report.provenance.repository}</span>
         <code>{report.provenance.commit}</code>
         <span>{new Date(report.provenance.analyzedAt).toLocaleString()}</span>
-        <span>LaunchProof {report.provenance.launchProofVersion}</span>
+        <span>Drantis {report.provenance.launchProofVersion}</span>
         <span>{report.provenance.analyzers?.length ?? 0} analyzer(s)</span>
       </footer>
     </div>
@@ -470,7 +470,7 @@ function DecisionExplainer({ report }: { report: AnalysisReport }) {
           <p className="eyebrow">WHY THIS DECISION</p>
           <h2>Release decisions remain traceable to controls and evidence.</h2>
           <p>
-            LaunchProof does not collapse uncertainty into a pass. The controls below are the
+            Drantis does not collapse uncertainty into a pass. The controls below are the
             highest-value places to inspect before release.
           </p>
         </div>
@@ -584,7 +584,7 @@ function SystemMap({ report, compact = false }: { report: AnalysisReport; compac
           <p className="eyebrow">SYSTEM MAP</p>
           <h2>Architecture and trust relationships</h2>
           <p>
-            Select a node to trace the evidence and relationships LaunchProof actually observed.
+            Select a node to trace the evidence and relationships Drantis actually observed.
           </p>
         </div>
         <div className="legend">
@@ -599,7 +599,7 @@ function SystemMap({ report, compact = false }: { report: AnalysisReport; compac
           <svg
             viewBox={`0 0 900 ${Math.max(520, Math.ceil(report.graph.nodes.length / 4) * 150)}`}
             role="img"
-            aria-label="LaunchProof application security graph"
+            aria-label="Drantis application security graph"
           >
             {report.graph.edges.map((edge) => {
               const a = positions.get(edge.from),
@@ -734,8 +734,8 @@ function SentenView({ report }: { report: AnalysisReport }) {
             <p className="eyebrow">SENTEN INTEGRATION</p>
             <h2>No Senten artifacts detected</h2>
             <p>
-              This snapshot did not declare Senten architecture or a versioned Senten → LaunchProof
-              evidence envelope. LaunchProof does not invent Senten state.
+              This snapshot did not declare Senten architecture or a versioned Senten → Drantis
+              evidence envelope. Drantis does not invent Senten state.
             </p>
           </div>
         </div>
@@ -753,7 +753,7 @@ function SentenView({ report }: { report: AnalysisReport }) {
           <h2>Intended architecture meets observed assurance</h2>
           <p>
             Senten artifacts are imported as evidence and intended-architecture graph data. They can
-            support LaunchProof reasoning, but cannot independently create a LaunchProof VERIFIED
+            support Drantis reasoning, but cannot independently create a Drantis VERIFIED
             result.
           </p>
         </div>
@@ -1099,7 +1099,7 @@ function Settings({ report }: { report: AnalysisReport }) {
           <b>{report.provenance.policyVersion}</b>
         </article>
         <article>
-          <span>LaunchProof</span>
+          <span>Drantis</span>
           <b>{report.provenance.launchProofVersion}</b>
         </article>
         <article>
@@ -1118,7 +1118,7 @@ function Settings({ report }: { report: AnalysisReport }) {
         ))}
       </div>
       <p className="certification-note">
-        A LaunchProof report is evidence about one analyzed snapshot. It is not permanent security
+        A Drantis report is evidence about one analyzed snapshot. It is not permanent security
         certification.
       </p>
     </section>

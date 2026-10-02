@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: launchproof-ci-${{ github.ref }}
+  group: drantis-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -42,10 +42,10 @@ jobs:
         run: npm audit --omit=dev --audit-level=high
       - name: Controlled release scenarios
         run: |
-          npm run cli -- analyze scenarios/production-reference --json /tmp/launchproof-reference.json
-          npm run cli -- analyze scenarios/missing-tenant-authorization --json /tmp/launchproof-regression.json
-          npm run cli -- analyze scenarios/senten-reference --json /tmp/launchproof-senten.json
-          npm run verify:scenarios -- /tmp/launchproof-reference.json /tmp/launchproof-regression.json /tmp/launchproof-senten.json
+          npm run cli -- analyze scenarios/production-reference --json /tmp/drantis-reference.json
+          npm run cli -- analyze scenarios/missing-tenant-authorization --json /tmp/drantis-regression.json
+          npm run cli -- analyze scenarios/senten-reference --json /tmp/drantis-senten.json
+          npm run verify:scenarios -- /tmp/drantis-reference.json /tmp/drantis-regression.json /tmp/drantis-senten.json
 
   verify-node26:
     name: verify / node-26
@@ -85,12 +85,12 @@ jobs:
       - name: Docker Compose validation
         run: docker compose config --quiet
       - name: Docker build
-        run: docker build -t launchproof-ci .
+        run: docker build -t drantis-ci .
       - name: Isolated runner image
-        run: docker build -f tests/fixtures/runner/Dockerfile -t launchproof-runner:ci tests/fixtures/runner
+        run: docker build -f tests/fixtures/runner/Dockerfile -t drantis-runner:ci tests/fixtures/runner
       - name: Authorized isolated-runner exercise
         run: |
-          RUNNER_IMAGE="$(docker image inspect launchproof-runner:ci --format '{{.Id}}')"
+          RUNNER_IMAGE="$(docker image inspect drantis-runner:ci --format '{{.Id}}')"
           npm run verify:isolated-runner -- "$RUNNER_IMAGE"
 
   windows-desktop:

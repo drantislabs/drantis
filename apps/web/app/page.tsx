@@ -1,4 +1,4 @@
-import { LaunchProofApp } from '../components/LaunchProofApp';
+import { DrantisApp } from '../components/DrantisApp';
 export default function Page() {
-  return <LaunchProofApp />;
+  return <DrantisApp />;
 }

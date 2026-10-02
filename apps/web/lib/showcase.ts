@@ -6,7 +6,7 @@ import {
   type AnalysisReport,
 } from '@launchproof/core';
 import { createRepositorySnapshot, TypeScriptNextAnalyzer } from '@launchproof/analyzers';
-import { loadPolicy } from '@launchproof/policies';
+import { loadRepositoryPolicy } from '@launchproof/policies';
 import { SentenPlatformAdapter, analyzersFromPlatformAdapters } from '@launchproof/integrations';
 
 export const SHOWCASE_TARGETS = new Map<
@@ -34,10 +34,30 @@ export const SHOWCASE_TARGETS = new Map<
     },
   ],
   [
+    'drantis-self',
+    {
+      label: 'Drantis — Self Analysis',
+      repository: 'drantislabs/drantis',
+      relativeRoot: '.',
+      branch: 'working-tree',
+      commit: 'SELF',
+    },
+  ],
+  [
+    'drantis-self',
+    {
+      label: 'Drantis — Self Analysis',
+      repository: 'drantislabs/drantis',
+      relativeRoot: '.',
+      branch: 'working-tree',
+      commit: 'SELF',
+    },
+  ],
+  [
     'launchproof-self',
     {
-      label: 'LaunchProof — Self Analysis',
-      repository: 'thomasdscx-labs/launchproof',
+      label: 'Drantis — Self Analysis (legacy scenario id)',
+      repository: 'drantislabs/drantis',
       relativeRoot: '.',
       branch: 'working-tree',
       commit: 'SELF',
@@ -69,7 +89,7 @@ export async function analyzeAuthorizedScenario(
   const root = path.resolve(repoRoot, selected.relativeRoot);
   if (root !== repoRoot && !root.startsWith(`${repoRoot}${path.sep}`))
     throw new Error('Invalid authorized repository path.');
-  const policy = await loadPolicy(path.join(root, '.launchproof.yml'));
+  const policy = await loadRepositoryPolicy(root);
   const snapshot = await createRepositorySnapshot(
     root,
     { repository: selected.repository, branch: selected.branch, commit: selected.commit },

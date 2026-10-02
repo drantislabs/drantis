@@ -7,7 +7,7 @@ import {
   parseSentenAssuranceExchange,
   signLaunchProofVerificationResult,
 } from '@launchproof/integrations';
-import { launchProofCapabilities } from '@launchproof/core';
+import { drantisCapabilities, launchProofCapabilities } from '@launchproof/core';
 import { analyzeRepository, formatReport, toSarif } from './index.js';
 
 const args = process.argv.slice(2);
@@ -55,12 +55,12 @@ async function sentenCommand() {
   const operation = args.shift() ?? 'inspect';
 
   if (operation === 'keygen') {
-    const directory = positional('.launchproof/keys');
+    const directory = positional('.drantis/keys');
     const publisher = value('--publisher') ?? 'launchproof';
     const keys = await generateLaunchProofSigningKey(directory, publisher);
     console.log(
       [
-        'LaunchProof signing key generated',
+        'Drantis signing key generated',
         `Key ID:     ${keys.keyId}`,
         `Private:    ${keys.privateKeyPath}`,
         `Public:     ${keys.publicKeyPath}`,
@@ -75,7 +75,7 @@ async function sentenCommand() {
   const bundleFile = positional();
   if (bundleFile === '.')
     throw new Error(
-      'Usage: launchproof senten inspect <senten-assurance.json> | senten verify <senten-assurance.json> [--repo path --output result.json --sign-key key.pem] | senten keygen [directory]',
+      'Usage: drantis senten inspect <senten-assurance.json> | senten verify <senten-assurance.json> [--repo path --output result.json --sign-key key.pem] | senten keygen [directory]',
     );
   const bundle = parseSentenAssuranceExchange(await readBounded(bundleFile));
 
@@ -96,7 +96,7 @@ async function sentenCommand() {
   }
 
   if (operation !== 'verify')
-    throw new Error('Usage: launchproof senten <inspect|verify|keygen> ...');
+    throw new Error('Usage: drantis senten <inspect|verify|keygen> ...');
 
   const repository = value('--repo') ?? '.';
   const report = await analyzeRepository(repository, {
@@ -117,7 +117,7 @@ async function sentenCommand() {
     );
   }
 
-  const output = value('--output') ?? 'launchproof-result.json';
+  const output = value('--output') ?? 'drantis-result.json';
   await writeStructured(output, result);
   const reportFile = value('--report');
   if (reportFile) await writeStructured(reportFile, report);
@@ -151,7 +151,9 @@ async function sentenCommand() {
 
 async function main() {
   if (command === 'capabilities') {
-    console.log(JSON.stringify(launchProofCapabilities(), null, 2));
+    console.log(
+      JSON.stringify(has('--legacy') ? launchProofCapabilities() : drantisCapabilities(), null, 2),
+    );
     return;
   }
 
@@ -162,7 +164,7 @@ async function main() {
 
   const target = positional();
   if (command === 'report') {
-    const file = target === '.' ? '.launchproof/report.json' : target;
+    const file = target === '.' ? '.drantis/report.json' : target;
     const report = JSON.parse(await readFile(file, 'utf8'));
     const format = value('--format') ?? 'summary';
     console.log(
@@ -176,7 +178,7 @@ async function main() {
   }
   if (!['analyze', 'verify'].includes(command))
     throw new Error(
-      'Usage: launchproof analyze [path] [--json file] [--sarif file] [--scanner format:file] | verify [path] [--allow-execution --runner-image sha256:<id>] | report [file] [--format summary|json|sarif] | senten <inspect|verify|keygen> ... | capabilities',
+      'Usage: drantis analyze [path] [--json file] [--sarif file] [--scanner format:file] | verify [path] [--allow-execution --runner-image sha256:<id>] | report [file] [--format summary|json|sarif] | senten <inspect|verify|keygen> ... | capabilities',
     );
 
   const report = await analyzeRepository(target, {
@@ -202,6 +204,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(`LaunchProof error: ${error instanceof Error ? error.message : String(error)}`);
+  console.error(`Drantis error: ${error instanceof Error ? error.message : String(error)}`);
   process.exitCode = 3;
 });

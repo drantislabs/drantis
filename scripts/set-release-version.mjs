@@ -43,5 +43,5 @@ for (const path of manifests) {
 }
 
 console.log(
-  `Updated ${manifests.length} LaunchProof workspace manifests to ${version}. Run npm install --package-lock-only --ignore-scripts, format-check, and the full release verifier before committing.`,
+  `Updated ${manifests.length} Drantis workspace manifests to ${version}. Run npm install --package-lock-only --ignore-scripts, format-check, and the full release verifier before committing.`,
 );

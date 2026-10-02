@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { launchProofCapabilities } from '@launchproof/core';
+import { drantisCapabilities } from '@launchproof/core';
 import { localAnalysisCapability } from '../../../lib/local-analysis';
 
 export async function GET() {
   return NextResponse.json(
     {
-      ...launchProofCapabilities(),
+      ...drantisCapabilities(),
       runtime: {
         localAnalysis: localAnalysisCapability(),
         showcase: true,

@@ -1,5 +1,5 @@
 services:
-  launchproof:
+  drantis:
     build:
       context: .
       target: runtime

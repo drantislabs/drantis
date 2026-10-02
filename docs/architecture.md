@@ -1,6 +1,6 @@
 # Architecture
 
-LaunchProof is a modular monorepo. `@launchproof/core` owns normalized contracts, orchestration, report comparison and verification coordination. Static analyzers, scanner adapters and evidence producers emit normalized artifacts. The graph, control engine, Assurance Cases and scoring layer consume those artifacts. Clients are replaceable and never define security conclusions.
+Drantis is a modular monorepo. `@launchproof/core` owns normalized contracts, orchestration, report comparison and verification coordination. Static analyzers, scanner adapters and evidence producers emit normalized artifacts. The graph, control engine, Assurance Cases and scoring layer consume those artifacts. Clients are replaceable and never define security conclusions.
 
 ## Trust boundaries
 
@@ -36,4 +36,4 @@ The GUI and CLI consume the same report model. Dynamic runners and model provide
 
 ## Extension boundary
 
-LaunchProof Core is platform-agnostic. Ecosystem knowledge enters through language/framework/platform adapters and evidence importers. The core owns normalized evidence, graph, controls, Assurance Cases, policy and release decisions; adapters own ecosystem detection and interpretation. Senten is the first official platform adapter and is intentionally not a Core dependency.
+Drantis Core is platform-agnostic. Ecosystem knowledge enters through language/framework/platform adapters and evidence importers. The core owns normalized evidence, graph, controls, Assurance Cases, policy and release decisions; adapters own ecosystem detection and interpretation. Senten is the first official platform adapter and is intentionally not a Core dependency.

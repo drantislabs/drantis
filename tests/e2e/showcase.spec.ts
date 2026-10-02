@@ -5,7 +5,7 @@ async function waitForAnalysis(page: Page) {
   await expect(terminal).toBeVisible({ timeout: 60_000 });
   const error = page.locator('.error');
   if (await error.isVisible()) {
-    throw new Error(`LaunchProof UI analysis failed: ${await error.innerText()}`);
+    throw new Error(`Drantis UI analysis failed: ${await error.innerText()}`);
   }
   await expect(page.locator('.report')).toBeVisible();
 }
@@ -15,7 +15,7 @@ async function waitForComparison(page: Page) {
   await expect(terminal).toBeVisible({ timeout: 60_000 });
   const error = page.locator('.error');
   if (await error.isVisible()) {
-    throw new Error(`LaunchProof UI comparison failed: ${await error.innerText()}`);
+    throw new Error(`Drantis UI comparison failed: ${await error.innerText()}`);
   }
   await expect(page.locator('.comparison')).toBeVisible();
 }

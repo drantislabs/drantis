@@ -42,7 +42,7 @@ export type ExtensionKind =
   | 'EvidenceImporter'
   | 'Reporter';
 export interface ExtensionManifest {
-  apiVersion: 'launchproof.dev/v1';
+  apiVersion: 'drantis.dev/v1' | 'launchproof.dev/v1';
   kind: ExtensionKind;
   metadata: { id: string; version: string; displayName?: string; vendor?: string };
   capabilities: ExtensionCapability[];
@@ -61,7 +61,7 @@ export interface AssuranceClaim {
 }
 
 export interface EvidenceInterchangeEnvelope {
-  schema: 'launchproof-evidence/v1';
+  schema: 'drantis-evidence/v1' | 'launchproof-evidence/v1';
   producer: AnalyzerIdentity & { name?: string };
   repository: { name?: string; branch?: string; commit: string };
   generatedAt: string;
@@ -159,6 +159,44 @@ export interface LaunchProofVerificationResultBundle {
   metadata?: Record<string, unknown>;
 }
 
+export interface DrantisCapabilityDocument {
+  schema: 'drantis-capabilities/v1';
+  drantisVersion: string;
+  product: {
+    name: 'Drantis';
+    organization: 'Drantis Labs';
+    parent: 'Rubbl Media Group';
+  };
+  surfaces: Array<'cli' | 'web' | 'desktop' | 'docker'>;
+  commands: string[];
+  protocols: {
+    genericEvidence: 'drantis-evidence/v1';
+    sentenAssuranceExchange: '0.1';
+    sentenVerificationResult: 'launchproof-verification-result/0.1';
+    sarif: '2.1.0';
+  };
+  integrations: {
+    senten: {
+      targetVersion: string;
+      exportCommand: string;
+      importCommand: string;
+      trustCommand: string;
+    };
+    lobework: {
+      status: 'contract-ready' | 'planned';
+      transport: string;
+    };
+  };
+  compatibility: {
+    legacyCapabilitySchema: 'launchproof-capabilities/v1';
+    legacyGenericEvidenceSchema: 'launchproof-evidence/v1';
+    legacyExtensionApi: 'launchproof.dev/v1';
+    legacyCliAlias: 'launchproof';
+    sentenBridgeCommand: 'senten launchproof';
+  };
+}
+
+/** @deprecated Compatibility document for pre-Drantis clients. */
 export interface LaunchProofCapabilityDocument {
   schema: 'launchproof-capabilities/v1';
   launchProofVersion: string;
@@ -194,7 +232,7 @@ export interface VerificationCommandPolicy {
   image?: string | undefined;
 }
 
-export interface LaunchProofPolicyShape {
+export interface DrantisPolicyShape {
   version: 1;
   analysis?: { excludePaths?: string[] };
   assurance: { requiredDomains: AssuranceDomain[] };
@@ -220,6 +258,9 @@ export interface LaunchProofPolicyShape {
   ai: { dataPolicy: AIDataPolicy; allowedProviders?: string[] };
   verification?: { enabled: boolean; commands: VerificationCommandPolicy[] };
 }
+
+/** @deprecated Use DrantisPolicyShape for new integrations. */
+export type LaunchProofPolicyShape = DrantisPolicyShape;
 
 export interface SourceLocation {
   path: string;

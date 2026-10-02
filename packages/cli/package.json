@@ -4,6 +4,7 @@
   "private": false,
   "type": "module",
   "bin": {
+    "drantis": "./dist/bin.js",
     "launchproof": "./dist/bin.js"
   },
   "dependencies": {},

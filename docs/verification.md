@@ -1,6 +1,6 @@
 # Verification expectations
 
-LaunchProof distinguishes **implemented code** from a **verified release candidate**. A release is not complete until the complete matrix below actually runs successfully in an environment with the required dependencies, browser tooling, Docker and—when desktop packaging is in scope—Rust/Tauri prerequisites.
+Drantis distinguishes **implemented code** from a **verified release candidate**. A release is not complete until the complete matrix below actually runs successfully in an environment with the required dependencies, browser tooling, Docker and—when desktop packaging is in scope—Rust/Tauri prerequisites.
 
 ```text
 npm run format:check
@@ -28,4 +28,4 @@ The repository includes `tsconfig.offline.json` and `scripts/offline-smoke.mts` 
 
 CI intentionally fails if `package-lock.json` is absent. The lockfile must be produced by a real npm install and committed; it must never be manually invented just to make CI appear reproducible.
 
-Every verification report should record the exact commit, policy version, LaunchProof version, analyzers and timestamp. A successful report applies only to that analyzed snapshot and does not constitute permanent security certification.
+Every verification report should record the exact commit, policy version, Drantis version, analyzers and timestamp. A successful report applies only to that analyzed snapshot and does not constitute permanent security certification.

@@ -64,4 +64,4 @@ The runner drops capabilities, uses no-new-privileges, read-only source/root, bo
 
 ## Residual risks
 
-See `limitations.md`. LaunchProof is an assurance evidence system, not an absolute proof of software security.
+See `limitations.md`. Drantis is an assurance evidence system, not an absolute proof of software security.

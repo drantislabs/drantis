@@ -1,15 +1,15 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "LaunchProof",
+  "productName": "Drantis",
   "version": "1.0.0-rc.1",
-  "identifier": "com.thomasdscx.launchproof",
+  "identifier": "com.drantislabs.drantis",
   "build": {
     "frontendDist": "../src"
   },
   "app": {
     "windows": [
       {
-        "title": "LaunchProof",
+        "title": "Drantis",
         "width": 1280,
         "height": 820,
         "resizable": true
