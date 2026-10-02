@@ -1,8 +1,8 @@
 # Limitations
 
-LaunchProof does **not** prove that an application is secure.
+Drantis does **not** prove that an application is secure.
 
-A report can only describe evidence available for the identified repository snapshot, policy, LaunchProof version, analyzer versions, scanner inputs and explicitly authorized verification runs.
+A report can only describe evidence available for the identified repository snapshot, policy, Drantis version, analyzer versions, scanner inputs and explicitly authorized verification runs.
 
 ## Static-analysis limits
 
@@ -18,7 +18,7 @@ Semgrep, Gitleaks, OSV and Trivy adapters normalize supplied scanner results. Co
 
 ## AI limits
 
-Model output is explanatory only. Models can be wrong, prompt-injected or incomplete. LaunchProof therefore prevents AI output from changing controls, Assurance Case states or release decisions.
+Model output is explanatory only. Models can be wrong, prompt-injected or incomplete. Drantis therefore prevents AI output from changing controls, Assurance Case states or release decisions.
 
 ## Infrastructure limits
 
@@ -26,4 +26,4 @@ Static source inspection does not automatically validate the deployed cloud acco
 
 ## Certification
 
-A LaunchProof report or Labs badge is not permanent certification, compliance attestation, penetration test, warranty, or guarantee.
+A Drantis report or Labs badge is not permanent certification, compliance attestation, penetration test, warranty, or guarantee.
