@@ -1,6 +1,6 @@
 # Security Model
 
-LaunchProof treats both repositories and analysis extensions as security-sensitive inputs. Safe defaults are no execution, no external source transmission, fail-closed policy parsing, redacted credential findings, evidence provenance, deterministic gates, and explicit certainty.
+Drantis treats both repositories and analysis extensions as security-sensitive inputs. Safe defaults are no execution, no external source transmission, fail-closed policy parsing, redacted credential findings, evidence provenance, deterministic gates, and explicit certainty.
 
 Hosted deployments should add authentication, tenant-isolated persistence, request/body limits, CSRF protections where state changes exist, per-principal rate limits, audit logs, and worker isolation before accepting arbitrary private repositories.
 
