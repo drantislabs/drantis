@@ -11,4 +11,4 @@ LaunchProof analyzes hostile input. Please report suspected vulnerabilities priv
 - Secret evidence is redacted; matched credential values are not stored in reports.
 - AI providers cannot independently pass controls or release gates.
 
-The current v0.1 vertical slice has **no dynamic runner**. See `docs/threat-model.md`, `docs/sandboxing.md`, and `docs/limitations.md`.
+Dynamic verification is opt-in and runs only through the constrained isolated-runner boundary. Static analysis never executes target repository code. See `docs/threat-model.md`, `docs/sandboxing.md`, and `docs/limitations.md`.
