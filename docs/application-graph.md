@@ -4,4 +4,4 @@ The typed graph models Routes, Middleware, ServerActions, AuthenticationBoundari
 
 Relationships include CALLS, READS, WRITES, AUTHENTICATES_THROUGH, AUTHORIZED_BY, VALIDATED_BY, RATE_LIMITED_BY, DEPENDS_ON, EXPOSES, TRUSTS, TESTED_BY and DEPLOYED_BY.
 
-Every edge carries evidence provenance. Current graph construction is source-unit aware and conservative. Interprocedural import/call resolution remains a depth expansion rather than something LaunchProof claims today.
+Every edge carries evidence provenance. Current graph construction is source-unit aware and conservative. Interprocedural import/call resolution remains a depth expansion rather than something Drantis claims today.
