@@ -134,7 +134,7 @@ export class SemgrepAdapter implements ScannerAdapter {
       findings.push(
         finding(this, {
           discriminator: `${item?.check_id}:${source.path}:${source.line ?? 0}`,
-          ruleId: item?.extra?.metadata?.launchproof_control ?? 'LP-07',
+          ruleId: item?.extra?.metadata?.drantis_control ?? item?.extra?.metadata?.launchproof_control ?? 'LP-07',
           title: item?.extra?.message ?? item?.check_id ?? 'Semgrep finding',
           severity: severity(item?.extra?.severity),
           evidenceIds: [ev.id],
