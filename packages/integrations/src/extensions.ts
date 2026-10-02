@@ -16,8 +16,10 @@ import type {
 import { createEvidence, stableId } from '@launchproof/evidence';
 
 const VERSION = '1.0.0-rc.1';
-const MANIFEST_API = 'launchproof.dev/v1' as const;
-const EVIDENCE_SCHEMA = 'launchproof-evidence/v1' as const;
+const MANIFEST_API = 'drantis.dev/v1' as const;
+const LEGACY_MANIFEST_API = 'launchproof.dev/v1' as const;
+const EVIDENCE_SCHEMA = 'drantis-evidence/v1' as const;
+const LEGACY_EVIDENCE_SCHEMA = 'launchproof-evidence/v1' as const;
 const EXTENSION_ID = /^[a-z0-9][a-z0-9._-]{1,127}$/;
 const CAPABILITIES = new Set<ExtensionCapability>([
   'language-detection',
@@ -35,7 +37,7 @@ const CAPABILITIES = new Set<ExtensionCapability>([
 ]);
 
 export function validateExtensionManifest(manifest: ExtensionManifest): ExtensionManifest {
-  if (manifest.apiVersion !== MANIFEST_API)
+  if (manifest.apiVersion !== MANIFEST_API && manifest.apiVersion !== LEGACY_MANIFEST_API)
     throw new Error(`Unsupported Drantis extension API: ${String(manifest.apiVersion)}`);
   if (!EXTENSION_ID.test(manifest.metadata.id))
     throw new Error(`Invalid extension id: ${manifest.metadata.id}`);
@@ -167,14 +169,14 @@ function certaintyFromExternal(value: unknown): Evidence['certainty'] {
   return 'DETECTED';
 }
 
-export class LaunchProofEvidenceImporter implements EvidenceImporter {
+export class DrantisEvidenceImporter implements EvidenceImporter {
   manifest: ExtensionManifest = validateExtensionManifest({
     apiVersion: MANIFEST_API,
     kind: 'EvidenceImporter',
     metadata: {
-      id: 'launchproof-evidence-v1',
+      id: 'drantis-evidence-v1',
       version: VERSION,
-      displayName: 'Drantis Legacy Evidence Interchange v1',
+      displayName: 'Drantis Evidence Interchange v1',
       vendor: 'Drantis',
     },
     capabilities: ['evidence', 'graph', 'invariants'],
@@ -184,7 +186,10 @@ export class LaunchProofEvidenceImporter implements EvidenceImporter {
   supports(source: { path?: string; mediaType?: string; schema?: string }): boolean {
     return (
       source.schema === EVIDENCE_SCHEMA ||
+      source.schema === LEGACY_EVIDENCE_SCHEMA ||
+      source.path?.endsWith('drantis-evidence.json') === true ||
       source.path?.endsWith('launchproof-evidence.json') === true ||
+      source.mediaType === 'application/vnd.drantis.evidence+json' ||
       source.mediaType === 'application/vnd.launchproof.evidence+json'
     );
   }
@@ -194,7 +199,7 @@ export class LaunchProofEvidenceImporter implements EvidenceImporter {
       content,
       'Evidence interchange document',
     ) as unknown as EvidenceInterchangeEnvelope;
-    if (doc.schema !== EVIDENCE_SCHEMA)
+    if (doc.schema !== EVIDENCE_SCHEMA && doc.schema !== LEGACY_EVIDENCE_SCHEMA)
       throw new Error(
         `Unsupported evidence interchange schema: ${String((doc as { schema?: unknown }).schema)}`,
       );
@@ -401,7 +406,7 @@ function textField(value: Record<string, unknown>, keys: string[]): string | und
 class SentenAnalyzer implements Analyzer {
   id = 'platform-senten';
   version = VERSION;
-  private readonly importer = new LaunchProofEvidenceImporter();
+  private readonly importer = new DrantisEvidenceImporter();
 
   analyze(context: AnalyzerContext): AnalyzerOutput {
     const evidence: Evidence[] = [];
@@ -629,3 +634,6 @@ export function analyzersFromPlatformAdapters(
     .filter((adapter) => adapter.detect(snapshot))
     .map((adapter) => adapter.analyzer());
 }
+
+/** @deprecated Use DrantisEvidenceImporter. */
+export { DrantisEvidenceImporter as LaunchProofEvidenceImporter };
