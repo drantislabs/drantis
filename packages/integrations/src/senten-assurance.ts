@@ -30,6 +30,14 @@ const MAX_EVIDENCE = 10_000;
 
 const SENTEN_STATUSES = new Set(['declared', 'observed', 'tested', 'verified', 'unknown', 'failed']);
 const SENTEN_CLAIM_KINDS = new Set(['invariant', 'policy', 'action', 'route', 'resource', 'custom']);
+const SENTEN_EVIDENCE_TYPES = new Set([
+  'declaration',
+  'runtime',
+  'test',
+  'verification',
+  'interaction',
+  'manual',
+]);
 
 export function stableAssuranceJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(stableAssuranceJson).join(',')}]`;
@@ -97,13 +105,16 @@ function validateEvidence(row: unknown, index: number): SentenEvidenceRecord {
       ? { subject: boundedString(item.subject, `Senten evidence[${index}].subject`, 1_000) }
       : {}),
     ...(typeof item.evidenceType === 'string'
-      ? {
-          evidenceType: boundedString(
+      ? (() => {
+          const evidenceType = boundedString(
             item.evidenceType,
             `Senten evidence[${index}].evidenceType`,
             30,
-          ) as SentenEvidenceRecord['evidenceType'],
-        }
+          );
+          if (!SENTEN_EVIDENCE_TYPES.has(evidenceType))
+            throw new Error(`Unsupported Senten evidence type: ${evidenceType}`);
+          return { evidenceType: evidenceType as SentenEvidenceRecord['evidenceType'] };
+        })()
       : {}),
     ...(strength !== undefined ? { strength } : {}),
     ...(typeof item.traceId === 'string'
