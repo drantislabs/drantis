@@ -71,11 +71,11 @@ jobs:
       - run: npm run test:e2e
       - run: docker compose config --quiet
       - name: Build self-hosted image
-        run: docker build -t launchproof:1.0.0 .
+        run: docker build -t drantis:1.0.0 .
       - name: Exercise isolated runner
         run: |
-          docker build -f tests/fixtures/runner/Dockerfile -t launchproof-runner:release tests/fixtures/runner
-          RUNNER_IMAGE="$(docker image inspect launchproof-runner:release --format '{{.Id}}')"
+          docker build -f tests/fixtures/runner/Dockerfile -t drantis-runner:release tests/fixtures/runner
+          RUNNER_IMAGE="$(docker image inspect drantis-runner:release --format '{{.Id}}')"
           npm run verify:isolated-runner -- "$RUNNER_IMAGE"
 
   desktop-windows:
@@ -95,7 +95,7 @@ jobs:
       - run: npm run build -w @launchproof/desktop
       - uses: actions/upload-artifact@v4
         with:
-          name: launchproof-windows
+          name: drantis-windows
           path: |
             apps/desktop/src-tauri/target/release/bundle/msi/*
             apps/desktop/src-tauri/target/release/bundle/nsis/*
@@ -119,12 +119,12 @@ jobs:
           npm run build -w @launchproof/cli
           npm pack -w @launchproof/cli --pack-destination release-artifacts
       - name: Generate CycloneDX SBOM
-        run: npm sbom --sbom-format cyclonedx > release-artifacts/launchproof-1.0.0-sbom.cdx.json
+        run: npm sbom --sbom-format cyclonedx > release-artifacts/drantis-1.0.0-sbom.cdx.json
       - name: Generate self-analysis
-        run: npm run cli -- analyze . --json release-artifacts/launchproof-1.0.0-self-analysis.json
+        run: npm run cli -- analyze . --json release-artifacts/drantis-1.0.0-self-analysis.json
       - uses: actions/download-artifact@v4
         with:
-          name: launchproof-windows
+          name: drantis-windows
           path: release-artifacts/windows
       - name: Checksums
         shell: bash
@@ -139,16 +139,16 @@ jobs:
       - name: Build and publish container
         run: |
           docker build \
-            -t ghcr.io/rubblmediagroup/launchproof:1.0.0 \
-            -t ghcr.io/rubblmediagroup/launchproof:latest .
-          docker push ghcr.io/rubblmediagroup/launchproof:1.0.0
-          docker push ghcr.io/rubblmediagroup/launchproof:latest
+            -t ghcr.io/rubblmediagroup/drantis:1.0.0 \
+            -t ghcr.io/drantislabs/drantis:latest .
+          docker push ghcr.io/rubblmediagroup/drantis:1.0.0
+          docker push ghcr.io/drantislabs/drantis:latest
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create v1.0.0 \
             --verify-tag \
-            --title "LaunchProof 1.0.0" \
+            --title "Drantis 1.0.0" \
             --notes-file docs/v1-release-notes.md \
             release-artifacts/**
