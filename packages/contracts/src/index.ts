@@ -159,6 +159,42 @@ export interface LaunchProofVerificationResultBundle {
   metadata?: Record<string, unknown>;
 }
 
+export interface DrantisCapabilityDocument {
+  schema: 'drantis-capabilities/v1';
+  drantisVersion: string;
+  product: {
+    name: 'Drantis';
+    organization: 'Drantis Labs';
+    parent: 'Rubbl Media Group';
+  };
+  surfaces: Array<'cli' | 'web' | 'desktop' | 'docker'>;
+  commands: string[];
+  protocols: {
+    genericEvidence: 'launchproof-evidence/v1';
+    sentenAssuranceExchange: '0.1';
+    sentenVerificationResult: 'launchproof-verification-result/0.1';
+    sarif: '2.1.0';
+  };
+  integrations: {
+    senten: {
+      targetVersion: string;
+      exportCommand: string;
+      importCommand: string;
+      trustCommand: string;
+    };
+    lobework: {
+      status: 'contract-ready' | 'planned';
+      transport: string;
+    };
+  };
+  compatibility: {
+    legacyCapabilitySchema: 'launchproof-capabilities/v1';
+    legacyCliAlias: 'launchproof';
+    sentenBridgeCommand: 'senten launchproof';
+  };
+}
+
+/** @deprecated Compatibility document for pre-Drantis clients. */
 export interface LaunchProofCapabilityDocument {
   schema: 'launchproof-capabilities/v1';
   launchProofVersion: string;
