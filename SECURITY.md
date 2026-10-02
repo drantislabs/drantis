@@ -1,6 +1,6 @@
 # Security Policy
 
-LaunchProof analyzes hostile input. Please report suspected vulnerabilities privately to the maintainers rather than opening a public exploit issue. Do not include live credentials or third-party source code in reports.
+Drantis analyzes hostile input. Please report suspected vulnerabilities privately to the maintainers rather than opening a public exploit issue. Do not include live credentials or third-party source code in reports.
 
 ## Security invariants
 
