@@ -1,7 +1,7 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main-window",
-  "description": "Minimal LaunchProof desktop webview capability set.",
+  "description": "Minimal Drantis Desktop webview capability set.",
   "windows": ["main"],
   "permissions": ["core:default"]
 }
