@@ -4,6 +4,7 @@ dist/
 coverage/
 playwright-report/
 test-results/
+.drantis/self-report.json
 .launchproof/self-report.json
 .env
 .env.*
@@ -15,4 +16,5 @@ test-results/
 .offline-dist2/
 .offline-runtime/
 .npm-cache-rc/
+.drantis/verification/
 .launchproof/verification/
