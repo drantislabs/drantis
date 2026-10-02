@@ -147,8 +147,8 @@ senten launchproof export
 drantis senten inspect .senten/artifacts/assurance/<bundle>.senten-assurance.json
 drantis senten verify .senten/artifacts/assurance/<bundle>.senten-assurance.json \
   --repo . \
-  --output .drantis/launchproof-result.json
-senten launchproof import .drantis/launchproof-result.json \
+  --output .drantis/drantis-result.json
+senten launchproof import .drantis/drantis-result.json \
   --source .senten/artifacts/assurance/<bundle>.senten-assurance.json
 ```
 
@@ -246,7 +246,7 @@ packages/
   graph/           typed Application Security Graph
   standards/       Drantis Build Standard v0.1
   assurance/       controls + Assurance Cases
-  policies/        strict .launchproof.yml parser + inheritance
+  policies/        strict .drantis.yml parser + legacy fallback
   scoring/         deterministic weighted Release Confidence
   integrations/    scanner adapters + isolated Docker runner
   intelligence/    optional governed model providers
