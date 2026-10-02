@@ -111,7 +111,7 @@ export async function analyzeSnapshot(
     title: 'Analysis provenance recorded',
     description:
       'Drantis recorded repository, commit, policy, analyzer identities, and analysis version.',
-    analyzer: { id: 'launchproof-core', version },
+    analyzer: { id: 'drantis-core', version },
     provenance,
     data: {
       repository: snapshot.repository,
@@ -194,7 +194,7 @@ export async function analyzeSnapshot(
     `Application Security Graph constructed with ${graph.nodes.length} nodes and ${graph.edges.length} edges.`,
   );
   const controls = evaluateControls(evidence, findings, graph, policy);
-  await emit('controls', `${controls.length} LaunchProof Build Standard controls evaluated.`);
+  await emit('controls', `${controls.length} Drantis Build Standard controls evaluated.`);
   const assuranceCases = buildAssuranceCases(evidence, controls, findings, graph, policy);
   await emit('assurance', `${assuranceCases.length} Assurance Cases constructed.`);
   const release = calculateReleaseDecision(controls, assuranceCases, findings, policy);
@@ -221,7 +221,7 @@ export async function analyzeSnapshot(
       'Only configured isolated-runner verification produces VERIFIED evidence.',
       'Scanner coverage depends on scanner result adapters and supplied scanner outputs.',
       'Absence of a supported secret signature is not proof that no secret exists.',
-      'LaunchProof reports are snapshot-specific assurance evidence, not permanent security certification.',
+      'Drantis reports are snapshot-specific assurance evidence, not permanent security certification.',
     ],
   };
 }
