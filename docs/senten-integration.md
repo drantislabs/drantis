@@ -102,7 +102,7 @@ Observed graph correspondence alone is `inconclusive`, never verified.
 
 ## Legacy generic evidence interchange
 
-Drantis still supports `launchproof-evidence/v1` through the generic EvidenceImporter ABI. This remains useful for extensions and tools other than Senten.
+Drantis uses `drantis-evidence/v1` as its canonical generic EvidenceImporter ABI and still accepts legacy `launchproof-evidence/v1` documents. This remains useful for extensions and tools other than Senten.
 
 Senten 1.0.3 should preferentially use its native `senten-assurance-exchange` / `launchproof-verification-result` protocol because it provides digest binding, stable claim IDs and a local trust path.
 
@@ -140,7 +140,7 @@ Drantis now exposes:
 drantis capabilities
 ```
 
-The machine-readable `drantis-capabilities/v1` document advertises supported surfaces and assurance protocol versions. This gives LobeWork a future discovery boundary without coupling LobeWork to Drantis's internal package graph or Tauri implementation.
+The machine-readable `drantis-capabilities/v1` document advertises supported surfaces, the `drantis-evidence/v1` interchange contract, and assurance protocol versions. This gives LobeWork a future discovery boundary without coupling LobeWork to Drantis's internal package graph or Tauri implementation.
 
 A future LobeWork integration should consume Drantis through versioned capability/report/assurance contracts, not by importing Drantis internals.
 
