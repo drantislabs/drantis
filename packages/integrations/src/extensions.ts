@@ -336,7 +336,7 @@ export class DrantisEvidenceImporter implements EvidenceImporter {
         upstreamClaimId: claim.id,
         scope: claim.scope ?? [],
         upstreamEvidenceIds: claim.evidenceIds ?? [],
-        launchProofEvidenceIds: (claim.evidenceIds ?? [])
+        drantisEvidenceIds: (claim.evidenceIds ?? [])
           .map((id) => idMap.get(id))
           .filter(Boolean),
         upstreamCertainty: claim.certainty,
@@ -349,7 +349,7 @@ export class DrantisEvidenceImporter implements EvidenceImporter {
 export const sentenManifest: ExtensionManifest = validateExtensionManifest({
   apiVersion: MANIFEST_API,
   kind: 'PlatformAdapter',
-  metadata: { id: 'senten', version: VERSION, displayName: 'Senten', vendor: 'ThomasDSCX Labs' },
+  metadata: { id: 'senten', version: VERSION, displayName: 'Senten', vendor: 'Drantis Labs' },
   capabilities: ['platform-detection', 'architecture', 'policy', 'invariants', 'evidence', 'graph'],
   compatibility: { core: '>=1.0.0-rc.1 <2.0.0' },
 });
