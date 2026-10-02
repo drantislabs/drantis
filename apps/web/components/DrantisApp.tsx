@@ -312,7 +312,7 @@ function exportReport(report: AnalysisReport) {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   anchor.href = url;
-  anchor.download = `launchproof-${report.provenance.commit || 'worktree'}.json`;
+  anchor.download = `drantis-${report.provenance.commit || 'worktree'}.json`;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
