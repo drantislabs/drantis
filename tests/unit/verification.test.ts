@@ -3,7 +3,7 @@ import {
   analyzeSnapshot,
   ExecutionDisabledRunner,
   type IsolatedRunner,
-  type LaunchProofPolicyShape,
+  type DrantisPolicyShape,
 } from '@launchproof/core';
 import { DockerEphemeralRunner } from '@launchproof/integrations';
 
@@ -14,7 +14,7 @@ const snapshot = {
   commit: 'abc',
   files: new Map<string, string>(),
 };
-const policy: LaunchProofPolicyShape = {
+const policy: DrantisPolicyShape = {
   version: 1,
   assurance: { requiredDomains: [] },
   security: { failOnSeverity: 'high', requireNoDetectedSecrets: true },
@@ -31,7 +31,7 @@ const policy: LaunchProofPolicyShape = {
         command: 'npm',
         args: ['test'],
         purpose: 'Run tests',
-        image: 'launchproof-runner:test',
+        image: 'drantis-runner:test',
       },
     ],
   },
@@ -72,7 +72,7 @@ describe('dynamic verification boundary', () => {
         startedAt: 'a',
         completedAt: 'b',
         runner: 'test-isolated',
-        image: 'launchproof-runner:test',
+        image: 'drantis-runner:test',
       }),
     };
     const report = await analyzeSnapshot(snapshot, policy, [], '0.2.0', {
@@ -97,7 +97,7 @@ describe('dynamic verification boundary', () => {
         startedAt: 'a',
         completedAt: 'b',
         runner: 'test-isolated',
-        image: 'launchproof-runner:test',
+        image: 'drantis-runner:test',
       }),
     };
     const report = await analyzeSnapshot(snapshot, policy, [], '0.2.0', {

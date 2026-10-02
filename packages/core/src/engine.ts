@@ -157,7 +157,7 @@ export async function analyzeSnapshot(
           title: 'Dynamic verification not authorized',
           description:
             'Policy requests verification, but this analysis invocation did not explicitly authorize code execution.',
-          analyzer: { id: 'launchproof-core', version },
+          analyzer: { id: 'drantis-core', version },
           provenance,
           data: { commandCount: policy.verification.commands.length },
         }),
